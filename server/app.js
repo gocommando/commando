@@ -4,6 +4,7 @@ import favicon from 'serve-favicon';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import historyApiFallback from 'connect-history-api-fallback';
 import commands from './routes/commands';
 
 const app = express();
@@ -21,6 +22,19 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/commands', commands);
+
+app.use(historyApiFallback({
+  verbose: false
+}));
+
+if (app.get('env') === 'development') {
+  const webpack = require('webpack');
+  const webpackConfig = require('../webpack.config');
+  const webpackMiddleware = require('webpack-dev-middleware');
+
+  app.use(express.static(path.join(__dirname, '../dist')));
+  app.use(webpackMiddleware(webpack(webpackConfig)));
+}
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -51,4 +65,4 @@ app.use((err, req, res, next) => {
   });
 });
 
-module.exports = app;
+export default app;
