@@ -1,26 +1,21 @@
-var path = require('path');
-var glob = require('glob');
-var command = require('./command');
-var loadPath = path.resolve('commands/**/*.js');
+import path from 'path';
+import glob from 'glob';
+import { build } from './command';
 
-var commands = glob.sync(loadPath).map(function (file) {
-  return command.extend(require(file));
+const loadPath = path.resolve('commands/**/*.js');
+
+const commands = glob.sync(loadPath).map(file => {
+  return build(require(file));
 });
 
-exports.toJSON = function () {
-  return commands.map(function (cmd) {
-    return cmd.toJSON();
-  });
+export function serializeCommands () {
+  return commands.map(cmd => cmd.toJSON());
 };
 
-exports.find = function(id) {
-  return commands.find(function (cmd) {
-    return cmd.id === id;
-  });
+export function findCommand (id) {
+  return commands.find(cmd => cmd.id === id);
 };
 
-exports.recognize = function (text) {
-  return commands.find(function (cmd) {
-    return cmd.recognize(text);
-  });
+export function recognizeCommand (text) {
+  return commands.find(cmd => cmd.recognize(text));
 };

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   name: 'Speak',
 
   pattern: /my name is (.+)/i,
@@ -7,9 +7,9 @@ module.exports = {
     { name: 'name' }
   ],
 
-  invoke: function (action) {
-    var reply = "Hello, " + action.name + ".";
-    reply += " How's your mother?";
-    return { reply: reply };
+  invoke (action) {
+    return {
+      reply: `Hello, ${action.name}. How's your mother?`
+    };
   }
 };

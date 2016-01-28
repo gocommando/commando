@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   name: 'Alarm',
 
   pattern: /wake me up at (.+)/,
@@ -7,7 +7,7 @@ module.exports = {
     { name: 'time', type: 'date' }
   ],
 
-  invoke: function (action) {
-    console.log('You better wake up at ' + action.time + '!');
+  invoke (action) {
+    console.log(`You better wake me up at ${action.time}!`);
   }
 };

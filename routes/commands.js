@@ -1,42 +1,47 @@
-var express = require('express');
-var router = express.Router();
-var commands = require('../services/commands');
+import express from 'express';
+import {
+  findCommand,
+  recognizeCommand,
+  serializeCommands
+} from '../services/commands';
 
-function notFound (res) {
+const router = express.Router();
+
+function notFound(res) {
   res.status(404).json({ error: 'Not Found' });
 }
 
-function find (req, res, next) {
-  req.command = commands.find(req.params.id);
+function find(req, res, next) {
+  req.command = findCommand(req.params.id);
   req.command ? next() : notFound(res);
 }
 
-function recognize (req, res, next) {
-  req.command = commands.recognize(req.params.q);
+function recognize(req, res, next) {
+  req.command = recognizeCommand(req.params.q);
   req.command ? next() : notFound(res);
 }
 
-router.get('/', function (req, res) {
-  res.json(commands.toJSON());
+router.get('/', (req, res) => {
+  res.json(serializeCommands());
 });
 
-router.get('/recognize/:q', recognize, function (req, res) {
+router.get('/recognize/:q', recognize, (req, res) => {
   res.status(200).json(req.command.toJSON());
 });
 
-router.post('/recognize/:q', recognize, function (req, res) {
-  var args = req.command.extract(req.params.q);
-  var result = req.command.invoke(args);
+router.post('/recognize/:q', recognize, (req, res) => {
+  const args = req.command.extract(req.params.q);
+  const result = req.command.invoke(args);
   res.status(200).json(result);
 });
 
-router.get('/:id', find, function (req, res) {
+router.get('/:id', find, (req, res) => {
   res.json(req.command.toJSON());
 });
 
-router.post('/:id', find, function (req, res) {
+router.post('/:id', find, (req, res) => {
   req.command.invoke(req.params.action);
   res.status(200).end();
 });
 
-module.exports = router;
+export default router;

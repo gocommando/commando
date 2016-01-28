@@ -1,44 +1,43 @@
-var _ = require('lodash');
+import _ from 'lodash';
 
-function assertRequiredKeys (obj) {
-  var missing = ['name', 'pattern', 'invoke'].filter(function (k) {
-    return !obj[k];
-  });
+function assertRequiredKeys(obj) {
+  const requiredKeys = ['name', 'pattern', 'invoke'];
+  const missing = requiredKeys.filter(k => !obj[k]);
 
   if (missing.length) {
-    throw new Error('Command is missing required keys: ' + missing.join(', '));
+    throw new Error(`Command is missing required keys: ${missing.join(', ')}`);
   }
 }
 
-var defaults = {
+const defaults = {
   id: undefined,
   name: undefined,
   pattern: undefined,
   properties: [],
 
-  toJSON: function () {
+  toJSON() {
     return _.pick(this, 'id', 'name', 'properties');
   },
 
-  recognize: function (text) {
+  recognize(text) {
     return text.match(this.pattern);
   },
 
-  invoke: function () {
-    throw new Error('invoke not implemented for ' + this.name);
+  invoke() {
+    throw new Error(`invoke not implemented for ${this.name}`);
   },
 
-  extract: function (text) {
-    var matches = text.match(this.pattern);
+  extract(text) {
+    const matches = text.match(this.pattern);
 
     if (matches) {
-      var props = _.map(this.properties, 'name');
+      const props = _.map(this.properties, 'name');
       return _.zipObject(props, _.tail(matches))
     }
   }
 };
 
-exports.extend = function (obj) {
+export function build (obj) {
   assertRequiredKeys(obj);
   obj.id = obj.id || _.uniqueId();
   return _.extend({}, defaults, obj);
