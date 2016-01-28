@@ -26,11 +26,13 @@
   },
   "devDependencies": {
     "babel-loader": "^6.2.1",
+    "babel-plugin-transform-runtime": "^6.4.3",
     "babel-preset-react": "^6.3.13",
     "html-webpack-plugin": "^2.7.2",
     "nodemon": "^1.8.1",
+    "react": "^0.14.6",
+    "react-dom": "^0.14.6",
     "webpack": "^1.12.12",
-    "webpack-dev-middleware": "^1.5.1",
-    "babel-plugin-transform-runtime": "^6.4.3"
+    "webpack-dev-middleware": "^1.5.1"
   }
 }

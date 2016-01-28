@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import historyApiFallback from 'connect-history-api-fallback';
 import commands from './routes/commands';
+import webpack from './middleware/webpack';
 
 const app = express();
 
@@ -28,12 +29,8 @@ app.use(historyApiFallback({
 }));
 
 if (app.get('env') === 'development') {
-  const webpack = require('webpack');
-  const webpackConfig = require('../webpack.config');
-  const webpackMiddleware = require('webpack-dev-middleware');
-
   app.use(express.static(path.join(__dirname, '../dist')));
-  app.use(webpackMiddleware(webpack(webpackConfig)));
+  app.use(webpack());
 }
 
 // catch 404 and forward to error handler
