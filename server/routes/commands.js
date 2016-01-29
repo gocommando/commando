@@ -3,7 +3,7 @@ import {
   findCommand,
   recognizeCommand,
   serializeCommands
-} from '../services/commands';
+} from '../../lib/commando';
 
 const router = express.Router();
 
@@ -12,7 +12,7 @@ function notFound(res) {
 }
 
 function find(req, res, next) {
-  req.command = findCommand(req.params.id);
+  req.command = findCommand(req.params.intent);
   req.command ? next() : notFound(res);
 }
 
@@ -35,11 +35,11 @@ router.post('/recognize/:q', recognize, (req, res) => {
   res.status(200).json(result);
 });
 
-router.get('/:id', find, (req, res) => {
+router.get('/:intent', find, (req, res) => {
   res.json(req.command.toJSON());
 });
 
-router.post('/:id', find, (req, res) => {
+router.post('/:intent', find, (req, res) => {
   req.command.invoke(req.params.action);
   res.status(200).end();
 });

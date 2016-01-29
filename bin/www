@@ -6,9 +6,22 @@ require('babel-core/register');
  * Module dependencies.
  */
 
+const path = require('path');
 const app = require('../server/app');
 const debug = require('debug')('commando:server');
 const http = require('http');
+const glob = require('glob');
+
+/**
+ * Require all commando commands.
+ */
+
+const loadPath = path.resolve('commands/**/*.js');
+
+glob(loadPath, function (err, files) {
+  if (err) throw err;
+  files.forEach(require);
+});
 
 /**
  * Get port from environment and store in Express.

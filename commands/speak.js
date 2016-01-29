@@ -1,4 +1,6 @@
-export default {
+import { register } from '../lib/commando';
+
+export default register({
   name: 'Speak',
 
   pattern: /my name is (.+)/i,
@@ -12,4 +14,4 @@ export default {
       reply: `Hello, ${action.name}. How's your mother?`
     };
   }
-};
+});

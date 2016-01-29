@@ -1,4 +1,6 @@
-export default {
+import { register } from '../lib/commando';
+
+export default register({
   name: 'Alarm',
 
   pattern: /wake me up at (.+)/,
@@ -7,7 +9,7 @@ export default {
     { name: 'time', type: 'date' }
   ],
 
-  invoke (action) {
+  invoke: function (action) {
     console.log(`You better wake me up at ${action.time}!`);
   }
-};
+});

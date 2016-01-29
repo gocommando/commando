@@ -1,4 +1,4 @@
-var path = require('path');
+var config = require('./config');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 function development (devel, prod) {
@@ -6,13 +6,13 @@ function development (devel, prod) {
 }
 
 module.exports = {
-  entry: './src/app.js',
+  entry: config.paths.app('app.js'),
 
   devtool: development('source-map'),
 
   output: {
     filename: 'app.js',
-    path: path.join(__dirname, 'dist')
+    path: config.paths.public()
   },
 
   module: {
@@ -30,7 +30,7 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: config.paths.app('index.html'),
       hash: false,
       filename: 'index.html',
       inject: 'body',

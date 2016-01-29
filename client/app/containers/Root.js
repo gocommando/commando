@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import SpeechInput from '../components/SpeechInput';
 
 export default class Root extends Component {
   render () {
     return (
-      <h1>Hello Ray!</h1>
+      <SpeechInput />
     );
   }
 }
