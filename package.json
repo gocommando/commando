@@ -6,9 +6,12 @@
     "start": "node ./bin/www",
     "start:dev": "DEBUG=commando:* nodemon --exec \"npm start\"",
     "compile": "webpack",
-    "dist": "NODE_ENV=production webpack"
+    "dist": "NODE_ENV=production webpack",
+    "test": "NODE_ENV=test mocha",
+    "test:dev": "NODE_ENV=test mocha --watch"
   },
   "dependencies": {
+    "axios": "^0.9.1",
     "babel-core": "^6.4.5",
     "babel-plugin-add-module-exports": "^0.1.2",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.4.5",
@@ -26,7 +29,9 @@
     "babel-loader": "^6.2.1",
     "babel-plugin-transform-runtime": "^6.4.3",
     "babel-preset-react": "^6.3.13",
+    "chai": "^3.5.0",
     "html-webpack-plugin": "^2.7.2",
+    "mocha": "^2.4.5",
     "nodemon": "^1.8.1",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",

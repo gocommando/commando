@@ -7,20 +7,25 @@ import commands from './routes/commands';
 import webpack from './middleware/webpack';
 import config from '../config';
 
+const DEVELOPMENT = process.env.NODE_ENV === 'development';
+
 const app = express();
 
-app.use(logger('dev'));
+if (DEVELOPMENT) {
+  app.use(logger('dev'));
+}
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/commands', commands);
+app.use('/api/commands', commands);
 
 app.use(historyApiFallback({
   verbose: false
 }));
 
-if (app.get('env') === 'development') {
+if (DEVELOPMENT) {
   app.use(express.static(config.paths.public()));
   app.use(webpack());
 }
