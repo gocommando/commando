@@ -10,8 +10,14 @@ export const fixtures = {
     properties: [
       { name: 'keyword' }
     ],
-    invoke () {
-      return { a: 'b' };
+    invoke (action, callback) {
+      if (action.keyword === 'ERROR') {
+        callback(new Error('Throw an error!'));
+      } else {
+        callback(null, {
+          reply: action.keyword
+        });
+      }
     }
   },
 
