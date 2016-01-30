@@ -6,6 +6,12 @@ import {
   recognizeCommand
 } from '../lib/commando';
 
+import {
+  registerDummy,
+  resetCommands,
+  fixtures
+} from './support/fixtures';
+
 describe('commando', function () {
   beforeEach(registerDummy);
   afterEach(resetCommands);

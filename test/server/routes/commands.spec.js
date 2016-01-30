@@ -1,5 +1,10 @@
 import { get } from 'axios';
 import { start, stop, api } from '../../support/server';
+import {
+  fixtures,
+  registerDummy,
+  resetCommands
+} from '../../support/fixtures';
 
 describe('(Server) /commands', function () {
   before(start);
@@ -10,7 +15,7 @@ describe('(Server) /commands', function () {
   describe('GET /', function () {
     it('lists all commands', function (done) {
       get(api('/commands')).then(({data}) => {
-        expect(data).to.deep.equal([fixtures.dummyJSON])
+        expect(data).to.deep.equal([fixtures.dummyJSON]);
         done();
       }).catch(done);
     });

@@ -3,7 +3,7 @@ const resolve = path.resolve;
 
 const base = (...args) => {
   return resolve.apply(resolve, [__dirname, ...args]);
-}
+};
 
 export default {
   paths: {

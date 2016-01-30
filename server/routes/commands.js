@@ -1,4 +1,5 @@
 import express from 'express';
+
 import {
   findCommand,
   recognizeCommand,
@@ -7,16 +8,16 @@ import {
 
 const router = express.Router();
 
-function notFound(res) {
+function notFound (res) {
   res.status(404).json({ error: 'Not Found' });
 }
 
-function find(req, res, next) {
+function find (req, res, next) {
   req.command = findCommand(req.params.intent);
   req.command ? next() : notFound(res);
 }
 
-function recognize(req, res, next) {
+function recognize (req, res, next) {
   req.command = recognizeCommand(req.params.q);
   req.command ? next() : notFound(res);
 }

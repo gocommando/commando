@@ -1,3 +1,8 @@
+import {
+  register,
+  commands
+} from '../../lib/commando';
+
 export const fixtures = {
   dummy: {
     name: 'Blah',
@@ -17,4 +22,12 @@ export const fixtures = {
       { name: 'keyword' }
     ]
   }
+};
+
+export function registerDummy () {
+  register(fixtures.dummy);
+};
+
+export function resetCommands () {
+  commands.length = 0;
 };

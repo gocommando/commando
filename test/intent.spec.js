@@ -1,4 +1,5 @@
 import { regex } from '../lib/intent';
+import { fixtures } from './support/fixtures';
 
 describe('intent', () => {
   describe('regex', () => {

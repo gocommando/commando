@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 function say (message) {
   let su = new SpeechSynthesisUtterance();
-  su.lang = "en";
+  su.lang = 'en';
   su.text = message;
   speechSynthesis.speak(su);
 }
@@ -44,10 +44,10 @@ export default class SpeechInput extends Component {
 
   componentDidMount () {
     this.recognizer = new webkitSpeechRecognition();
-    this.recognizer.lang = "en";
+    this.recognizer.lang = 'en';
     this.recognizer.onresult = (event) => {
       if (event.results.length > 0) {
-        let result = event.results[event.results.length-1];
+        let result = event.results[event.results.length - 1];
         handleResult(result, this.setState.bind(this));
       }
     };
