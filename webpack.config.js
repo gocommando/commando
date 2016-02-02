@@ -1,14 +1,12 @@
 var config = require('./config');
+var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-function development (devel, prod) {
-  return config.development ? devel : prod;
-}
-
-module.exports = {
-  entry: config.paths.app('app.js'),
-
-  devtool: development('eval-source-map'),
+var webpackConfig = {
+  entry: [
+    'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
+    config.paths.app('app.js')
+  ],
 
   output: {
     filename: 'app.js',
@@ -23,7 +21,9 @@ module.exports = {
       query: {
         cacheDirectory: true,
         plugins: ['transform-runtime'],
-        presets: ['es2015', 'react']
+        presets: config.development
+          ? ['es2015', 'stage-0', 'react', 'react-hmre']
+          : ['es2015', 'stage-0', 'react']
       }
     }]
   },
@@ -40,3 +40,14 @@ module.exports = {
     })
   ]
 };
+
+if (config.development) {
+  webpackConfig.devtool = 'source-map';
+
+  webpackConfig.plugins.push(
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  );
+}
+
+module.exports = webpackConfig;

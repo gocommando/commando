@@ -1,6 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 export default class SpeechInput extends Component {
+  static propTypes = {
+    onChange: PropTypes.func.isRequired
+  };
+
   constructor (props, context) {
     super(props, context);
     this.state = {
