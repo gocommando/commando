@@ -10,17 +10,15 @@ const path = require('path');
 const app = require('../server/app');
 const debug = require('debug')('commando:server');
 const http = require('http');
-const glob = require('glob');
+const commando = require('../lib/commando');
+const loadPath = path.resolve('commands/**/*.js');
 
 /**
  * Require all commando commands.
  */
 
-const loadPath = path.resolve('commands/**/*.js');
-
-glob(loadPath, function (err, files) {
-  if (err) throw err;
-  files.forEach(require);
+commando.registerDirectory(loadPath, function (err) {
+  throw err;
 });
 
 /**
@@ -48,7 +46,7 @@ server.on('listening', onListening);
  * Normalize a port into a number, string, or false.
  */
 
-function normalizePort(val) {
+function normalizePort (val) {
   const port = parseInt(val, 10);
 
   if (isNaN(port)) {
@@ -68,7 +66,7 @@ function normalizePort(val) {
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error) {
+function onError (error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
@@ -96,7 +94,7 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening() {
+function onListening () {
   const addr = server.address();
   const bind = typeof addr === 'string'
     ? 'pipe ' + addr

@@ -2,13 +2,13 @@ var config = require('./config');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 function development (devel, prod) {
-  return process.env.NODE_ENV === 'production' ? prod : devel;
+  return config.development ? devel : prod;
 }
 
 module.exports = {
   entry: config.paths.app('app.js'),
 
-  devtool: development('source-map'),
+  devtool: development('eval-source-map'),
 
   output: {
     filename: 'app.js',

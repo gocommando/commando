@@ -1,6 +1,4 @@
-import { register } from '../lib/commando';
-
-export default register({
+module.exports = {
   name: 'Speak',
 
   pattern: /my name is (.+)/i,
@@ -9,9 +7,9 @@ export default register({
     { name: 'name' }
   ],
 
-  invoke (action) {
-    return {
+  invoke (action, callback) {
+    callback(null, {
       reply: `Hello, ${action.name}. How's your mother?`
-    };
+    });
   }
-});
+};

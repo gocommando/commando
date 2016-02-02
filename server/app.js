@@ -7,11 +7,9 @@ import commands from './routes/commands';
 import webpack from './middleware/webpack';
 import config from '../config';
 
-const DEVELOPMENT = process.env.NODE_ENV === 'development';
-
 const app = express();
 
-if (DEVELOPMENT) {
+if (config.development) {
   app.use(logger('dev'));
 }
 
@@ -25,7 +23,7 @@ app.use(historyApiFallback({
   verbose: false
 }));
 
-if (DEVELOPMENT) {
+if (config.development) {
   app.use(express.static(config.paths.public()));
   app.use(webpack());
 }
@@ -41,7 +39,7 @@ app.use((req, res, next) => {
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') {
+if (config.development) {
   app.use((err, req, res, next) => {
     if (err.status !== 404) {
       console.error(err.stack);
