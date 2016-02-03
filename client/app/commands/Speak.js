@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Card, { CardMedia, CardContent } from '../components/Card';
 
 function availableVoices () {
   return speechSynthesis.getVoices().filter(function (voice) {
@@ -39,22 +40,19 @@ export default class Speak extends Component {
     }
 
     return (
-      <div className='card'>
-        <div className='card-content'>
-          <div className='media'>
-            <div className='media-content'>
-              <p className='title is-5'>Commando says:</p>
-            </div>
-          </div>
-
-          <div className='content'>
-            <h2>{ this.props.message }</h2>
-            <button onClick={ this.speak.bind(this) } type='button' className={ buttonClasses }>
-              Speak
-            </button>
-          </div>
-        </div>
-      </div>
+      <Card>
+        <CardMedia>
+          <p className='subtitle is-5'>Commando says:</p>
+        </CardMedia>
+        <CardContent>
+          <p className='title'>
+            { this.props.message }
+          </p>
+          <button onClick={ this.speak.bind(this) } type='button' className={ buttonClasses }>
+            Speak
+          </button>
+        </CardContent>
+      </Card>
     );
   }
 }

@@ -1,5 +1,6 @@
 module.exports = {
   name: 'Speak',
+  component: 'Speak',
 
   pattern: /say (.+)/i,
 
@@ -8,9 +9,6 @@ module.exports = {
   ],
 
   invoke (action, callback) {
-    callback(null, {
-      message: action.message,
-      component: 'Speak'
-    });
+    callback(null, action);
   }
 };

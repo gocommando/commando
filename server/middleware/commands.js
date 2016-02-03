@@ -1,3 +1,5 @@
+import { extend } from 'lodash';
+
 import {
   findCommand,
   recognizeCommand
@@ -20,11 +22,15 @@ export function recognize (req, res, next) {
 }
 
 export function invoke (command, action, res) {
-  command.invoke(action, function (err, reply) {
+  command.invoke(action, function (err, props) {
     if (err) {
-      res.status(400).json({error: err.message});
+      res.status(400).json({
+        error: err.message
+      });
     } else {
-      res.status(200).json(reply);
+      res.status(200).json(extend(command.toJSON(), {
+        props: props
+      }));
     }
   });
 }

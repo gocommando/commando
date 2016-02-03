@@ -48,7 +48,8 @@ describe('(Server) /commands', function () {
 
       post('/commands/blah', { data: params }).then(({status, data}) => {
         expect(status).to.equal(200);
-        expect(data).deep.equal({reply: 'GOTCHA'});
+        expect(data['name']).to.equal('Blah');
+        expect(data['props']).deep.equal({reply: 'GOTCHA'});
         done();
       }).catch(done);
     });
@@ -74,7 +75,8 @@ describe('(Server) /commands', function () {
     it('invokes a command', function (done) {
       post('/commands/recognize/foo%20bar').then(({status, data}) => {
         expect(status).to.equal(200);
-        expect(data).to.deep.equal({reply: 'bar'});
+        expect(data['name']).to.equal('Blah');
+        expect(data['props']).deep.equal({reply: 'bar'});
         done();
       }).catch(done);
     });

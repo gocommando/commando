@@ -1,29 +1,26 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import SpeechInput from '../components/SpeechInput';
-
-function renderCommand (response) {
-  if (response && response.component) {
-    let Command = require(`../commands/${response.component}`).default;
-    return <Command { ...response } />;
-  }
-}
+import CommandList from '../components/CommandList';
 
 export default class Layout extends Component {
   constructor (props, context) {
     super(props, context);
-
-    this.state = {
-      response: undefined
-    };
+    this.state = { commands: [] };
   }
 
-  handleSpeech (message) {
+  pushCommand (newCommand) {
+    this.setState({ commands: [ newCommand, ...this.state.commands ] });
+  }
+
+  handleChange (message) {
     let url = '/api/commands/recognize/';
     url += encodeURIComponent(message);
 
     axios.post(url).then(({data}) => {
-      this.setState({ response: data });
+      this.pushCommand({ message, response: data });
+    }).catch(({data}) => {
+      this.pushCommand({ message, error: data });
     });
   }
 
@@ -50,16 +47,12 @@ export default class Layout extends Component {
 
           <div className='hero-content'>
             <div className='container'>
-              <SpeechInput onChange={ this.handleSpeech.bind(this) } />
+              <SpeechInput onChange={ this.handleChange.bind(this) } />
             </div>
           </div>
         </section>
 
-        <section className='card-list'>
-          <div className='container'>
-            { renderCommand(this.state.response) }
-          </div>
-        </section>
+        <CommandList commands={ this.state.commands } />
       </div>
     );
   }

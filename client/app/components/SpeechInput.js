@@ -7,9 +7,7 @@ export default class SpeechInput extends Component {
 
   constructor (props, context) {
     super(props, context);
-    this.state = {
-      message: null
-    };
+    this.state = { message: null };
   }
 
   componentDidMount () {
@@ -29,12 +27,13 @@ export default class SpeechInput extends Component {
     let result = event.results[event.results.length - 1];
     let message = result[0].transcript;
 
-    this.setState({ message });
+    this.setState({ message: null });
     this.props.onChange(message);
   }
 
   handleSubmit (event) {
     event.preventDefault();
+    this.setState({ message: null });
     this.props.onChange(this.state.message);
   }
 
