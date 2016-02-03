@@ -8,7 +8,7 @@ export default class SpeechInput extends Component {
   constructor (props, context) {
     super(props, context);
     this.state = {
-      message: 'Click start and say something...'
+      message: null
     };
   }
 
@@ -18,7 +18,7 @@ export default class SpeechInput extends Component {
     this.recognizer.onresult = this.handleSpeech.bind(this);
   }
 
-  start () {
+  startSpeech () {
     this.recognizer.start();
     this.setState({ message: 'Listening...' });
   }
@@ -33,15 +33,33 @@ export default class SpeechInput extends Component {
     this.props.onChange(message);
   }
 
+  handleSubmit (event) {
+    event.preventDefault();
+    this.props.onChange(this.state.message);
+  }
+
+  handleChange (event) {
+    event.preventDefault();
+    let message = event.target.value;
+    this.setState({ message });
+  }
+
   render () {
     return (
-      <div>
-        <h1>Commando</h1>
-        <h4>{ this.state.message }</h4>
-        <button onClick={ this.start.bind(this) }>
-          Start
-        </button>
-      </div>
+      <form onSubmit={ this.handleSubmit.bind(this) } className='speech-input'>
+        <p className='control is-grouped'>
+          <input className='input is-medium' type='text'
+                 placeholder='How may I assist you?'
+                 value={ this.state.message }
+                 onChange={ this.handleChange.bind(this) } />
+
+          <a className='button is-outlined is-medium' onClick={ this.startSpeech.bind(this) }>
+            <i className='fa fa-microphone'></i>
+          </a>
+
+          <input type='submit' style={{display: 'none'}} />
+        </p>
+      </form>
     );
   }
 }

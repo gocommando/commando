@@ -1,0 +1,19 @@
+@import "~bulma/bulma/utilities/utilities";
+@import "~bulma/bulma/config/variables";
+@import "~bulma/bulma/config/generated-variables";
+@import "~bulma/bulma/base/base";
+@import "~bulma/bulma/elements/elements";
+@import "~bulma/bulma/components/components";
+@import "~bulma/bulma/layout/layout";
+
+.speech-input .button {
+  color: $primary;
+}
+
+.card-list {
+  padding-top: 30px;
+
+  .card {
+    width: 100%;
+  }
+}

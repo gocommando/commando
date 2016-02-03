@@ -1,15 +1,16 @@
 module.exports = {
   name: 'Speak',
 
-  pattern: /my name is (.+)/i,
+  pattern: /say (.+)/i,
 
   properties: [
-    { name: 'name' }
+    { name: 'message' }
   ],
 
   invoke (action, callback) {
     callback(null, {
-      reply: `Hello, ${action.name}. How's your mother?`
+      message: action.message,
+      component: 'Speak'
     });
   }
 };

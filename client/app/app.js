@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Root from './containers/Root';
+import Layout from './layouts/layout';
+import './app.scss';
 
 ReactDOM.render(
-  <Root />,
+  <Layout />,
   document.getElementById('root')
 );
 
