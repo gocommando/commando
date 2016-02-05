@@ -1,13 +1,24 @@
-import axios from 'axios';
 import React, { Component } from 'react';
 import SpeechInput from '../components/SpeechInput';
 import CommandList from '../components/CommandList';
 import { uniqueId, extend } from 'lodash';
+import io from 'socket.io-client';
 
 export default class Layout extends Component {
   constructor (props, context) {
     super(props, context);
     this.state = { commands: [] };
+    this.socket = io('http://localhost:3000');
+  }
+
+  componentDidMount () {
+    this.socket.on('command:error', ({ message, data }) => {
+      this.pushCommand({ message, error: data });
+    });
+
+    this.socket.on('command:success', ({ message, data }) => {
+      this.pushCommand({ message, response: data });
+    });
   }
 
   pushCommand (command) {
@@ -19,20 +30,8 @@ export default class Layout extends Component {
     });
   }
 
-  async handleChange (message) {
-    let url = '/api/commands/recognize/';
-    url += encodeURIComponent(message);
-
-    try {
-      let { data } = await axios.post(url);
-      this.pushCommand({ message, response: data });
-    } catch (err) {
-      if (err.data) {
-        this.pushCommand({ message, error: err.data });
-      } else {
-        throw err;
-      }
-    }
+  handleChange (message) {
+    this.socket.emit('command:invoke', { message });
   }
 
   render () {

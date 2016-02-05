@@ -7,9 +7,8 @@ require('../config').configure();
  * Module dependencies.
  */
 
-const app = require('../server/app');
+const start = require('../server').start;
 const debug = require('debug')('commando:server');
-const http = require('http');
 
 /**
  * Require all commando commands.
@@ -20,19 +19,17 @@ const http = require('http');
  */
 
 const port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-const server = http.createServer(app);
+const server = start(port);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
