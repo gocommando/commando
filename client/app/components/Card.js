@@ -1,47 +1,35 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 
-export class CardMedia extends Component {
-  static propTypes = {
-    children: PropTypes.any.isRequired
-  };
-
-  render () {
-    return (
-      <div className='media'>
-        <div className='media-content'>
-          { this.props.children }
-        </div>
+export function Media ({ children }) {
+  return (
+    <div className='media'>
+      <div className='media-content'>
+        { children }
       </div>
-    );
-  }
+    </div>
+  );
 }
 
-export class CardContent extends Component {
-  static propTypes = {
-    children: PropTypes.any.isRequired
-  };
-
-  render () {
-    return (
-      <div className='content'>
-        { this.props.children }
-      </div>
-    );
-  }
+export function Body ({ children }) {
+  return (
+    <div className='content'>
+      { children }
+    </div>
+  );
 }
 
-export default class Card extends Component {
-  static propTypes = {
-    children: PropTypes.any.isRequired
-  };
+export function Content ({ children }) {
+  return (
+    <div className='card-content'>
+      { children }
+    </div>
+  );
+}
 
-  render () {
-    return (
-      <div className='card'>
-        <div className='card-content'>
-          { this.props.children }
-        </div>
-      </div>
-    );
-  }
+export default function Card ({ children }) {
+  return (
+    <div className='card'>
+      { children }
+    </div>
+  );
 }

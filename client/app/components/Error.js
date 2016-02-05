@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Card, { CardMedia, CardContent } from '../components/Card';
+import Card, { Media, Content, Body } from '../components/Card';
 
 export default class Error extends Component {
   static propTypes = {
@@ -9,14 +9,16 @@ export default class Error extends Component {
   render () {
     return (
       <Card>
-        <CardMedia>
-          <p className='subtitle is-5'>Error</p>
-        </CardMedia>
-        <CardContent>
-          <p className='title'>
-            { this.props.error }
-          </p>
-        </CardContent>
+        <Content>
+          <Media>
+            <p className='subtitle is-5'>Error</p>
+          </Media>
+          <Body>
+            <p className='title'>
+              { this.props.error }
+            </p>
+          </Body>
+        </Content>
       </Card>
     );
   }

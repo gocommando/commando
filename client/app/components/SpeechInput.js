@@ -49,6 +49,7 @@ export default class SpeechInput extends Component {
         <p className='control is-grouped'>
           <input className='input is-medium' type='text'
                  placeholder='How may I assist you?'
+                 autoFocus='true'
                  value={ this.state.message }
                  onChange={ this.handleChange.bind(this) } />
 

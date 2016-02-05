@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import SpeechInput from '../components/SpeechInput';
 import CommandList from '../components/CommandList';
+import { uniqueId, extend } from 'lodash';
 
 export default class Layout extends Component {
   constructor (props, context) {
@@ -9,19 +10,29 @@ export default class Layout extends Component {
     this.state = { commands: [] };
   }
 
-  pushCommand (newCommand) {
-    this.setState({ commands: [ newCommand, ...this.state.commands ] });
+  pushCommand (command) {
+    this.setState({
+      commands: [
+        extend({id: uniqueId()}, command),
+        ...this.state.commands
+      ]
+    });
   }
 
-  handleChange (message) {
+  async handleChange (message) {
     let url = '/api/commands/recognize/';
     url += encodeURIComponent(message);
 
-    axios.post(url).then(({data}) => {
+    try {
+      let { data } = await axios.post(url);
       this.pushCommand({ message, response: data });
-    }).catch(({data}) => {
-      this.pushCommand({ message, error: data });
-    });
+    } catch (err) {
+      if (err.data) {
+        this.pushCommand({ message, error: err.data });
+      } else {
+        throw err;
+      }
+    }
   }
 
   render () {

@@ -5,12 +5,12 @@ function findComponent (component) {
   return require(`../commands/${component}`).default;
 }
 
-function componentFor ({ error, response }, index) {
+function componentFor ({ error, response, id }) {
   if (error) {
-    return <Error { ...error } key={ index }/>;
+    return <Error { ...error } key={ id }/>;
   } else {
     let Command = findComponent(response.component);
-    return <Command { ...response.props } key={ index } />;
+    return <Command { ...response.props } key={ id } />;
   }
 }
 
@@ -20,12 +20,10 @@ export default class CommandList extends Component {
   };
 
   render () {
-    const commands = this.props.commands.map(componentFor);
-
     return (
-      <section className='card-list'>
+      <section className='command-list'>
         <div className='container'>
-          { commands }
+          { this.props.commands.map(componentFor) }
         </div>
       </section>
     );

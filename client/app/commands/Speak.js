@@ -1,10 +1,23 @@
 import React, { Component, PropTypes } from 'react';
-import Card, { CardMedia, CardContent } from '../components/Card';
+import Card, { Body, Media, Content } from '../components/Card';
+import { once } from 'lodash';
 
-function availableVoices () {
-  return speechSynthesis.getVoices().filter(function (voice) {
-    return voice.lang === 'en-US';
+function findVoiceSync (name) {
+  return speechSynthesis.getVoices().find((voice) => {
+    return voice.name === name;
   });
+}
+
+function findVoice (name, callback) {
+  let allVoices = speechSynthesis.getVoices();
+
+  if (!allVoices.length) {
+    speechSynthesis.onvoiceschanged = once(() => {
+      callback(findVoiceSync(name));
+    });
+  } else {
+    callback(findVoiceSync(name));
+  }
 }
 
 export default class Speak extends Component {
@@ -12,46 +25,34 @@ export default class Speak extends Component {
     message: PropTypes.string.isRequired
   };
 
-  constructor (props, context) {
-    super(props, context);
-
-    this.state = {
-      speaking: false
-    };
-  }
-
   componentDidMount () {
     this.speak();
   }
 
   speak () {
-    this.setState({ speaking: true });
-    let msg = new SpeechSynthesisUtterance(this.props.message);
-    msg.voice = availableVoices()[0];
-    msg.onend = () => this.setState({ speaking: false });
-    speechSynthesis.speak(msg);
+    findVoice('Google UK English Male', (voice) => {
+      let msg = new SpeechSynthesisUtterance(this.props.message);
+      msg.voice = voice;
+      speechSynthesis.speak(msg);
+    });
   }
 
   render () {
-    let buttonClasses = 'button is-primary';
-
-    if (this.state.speaking) {
-      buttonClasses += ' is-loading';
-    }
-
     return (
       <Card>
-        <CardMedia>
-          <p className='subtitle is-5'>Commando says:</p>
-        </CardMedia>
-        <CardContent>
-          <p className='title'>
-            { this.props.message }
-          </p>
-          <button onClick={ this.speak.bind(this) } type='button' className={ buttonClasses }>
-            Speak
-          </button>
-        </CardContent>
+        <Content>
+          <Media>
+            <p className='subtitle is-5'>Commando says:</p>
+          </Media>
+          <Body>
+            <p className='title'>
+              { this.props.message }
+            </p>
+            <button onClick={ this.speak.bind(this) } type='button' className='button is-primary'>
+              Speak
+            </button>
+          </Body>
+        </Content>
       </Card>
     );
   }
