@@ -5,6 +5,12 @@ import bodyParser from 'body-parser';
 import historyApiFallback from 'connect-history-api-fallback';
 import commands from './routes/commands';
 import config from '../config';
+import path from 'path';
+import { registerDirectory } from './lib/commando';
+
+if (!config.test) {
+  registerDirectory(path.join(__dirname, 'commands/*'));
+}
 
 const app = express();
 

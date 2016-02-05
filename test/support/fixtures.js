@@ -1,7 +1,7 @@
 import {
   register,
   commands
-} from '../../lib/commando';
+} from '../../server/lib/commando';
 
 export const fixtures = {
   dummy: {

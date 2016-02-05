@@ -7,20 +7,13 @@ require('../config').configure();
  * Module dependencies.
  */
 
-const path = require('path');
 const app = require('../server/app');
 const debug = require('debug')('commando:server');
 const http = require('http');
-const commando = require('../lib/commando');
-const loadPath = path.resolve('commands/**/*.js');
 
 /**
  * Require all commando commands.
  */
-
-commando.registerDirectory(loadPath, function (err) {
-  throw err;
-});
 
 /**
  * Get port from environment and store in Express.

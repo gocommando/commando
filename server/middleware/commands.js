@@ -3,7 +3,7 @@ import { extend } from 'lodash';
 import {
   findCommand,
   recognizeCommand
-} from '../../lib/commando';
+} from '../lib/commando';
 
 function notFound (res) {
   res.status(404).json({

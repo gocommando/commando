@@ -1,5 +1,5 @@
 import express from 'express';
-import { serializeCommands } from '../../lib/commando';
+import { serializeCommands } from '../lib/commando';
 import { find, recognize, invoke } from '../middleware/commands';
 
 const router = express.Router();
