@@ -22,8 +22,9 @@ app.use(historyApiFallback({
   verbose: false
 }));
 
+app.use(express.static(paths.public()));
+
 if (env.development) {
-  app.use(express.static(paths.public()));
   require('./middleware/webpack')(app);
 }
 

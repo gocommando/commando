@@ -1,0 +1,11 @@
+{
+  "name": "Commando",
+  "description": "A hackable Google Now clone",
+  "repository": "https://github.com/rzane/commando",
+  "keywords": ["node", "express", "socketio", "commando", "google", "now"],
+  "env": {
+    "NPM_CONFIG_PRODUCTION": {
+      "value": "false"
+    }
+  }
+}

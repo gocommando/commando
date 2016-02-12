@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Card, { Content } from '../components/Card';
 import Loading from '../components/Loading';
 
-const BASE_URI = 'http://forecast.io/embed/#';
+const BASE_URI = 'https://forecast.io/embed/#';
 
 function queryString (data) {
   let encode = encodeURIComponent;
@@ -12,7 +12,6 @@ function queryString (data) {
 }
 
 function Forecast (props) {
-  console.log(props, queryString(props));
   return (
     <iframe type='text/html' frameBorder='0'
             height='245' width='100%'

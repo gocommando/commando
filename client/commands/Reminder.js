@@ -9,7 +9,7 @@ const ANIMATION = {
 
 export default class Reminder extends Component {
   static propTypes = {
-    scheduled: PropTypes.boolean,
+    scheduled: PropTypes.bool,
     time: PropTypes.string.isRequired,
     reminder: PropTypes.string.isRequired
   };

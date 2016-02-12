@@ -4,7 +4,6 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 const webpackConfig = {
   entry: [
-    'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
     paths.client('app.js')
   ],
 
@@ -46,6 +45,10 @@ const webpackConfig = {
 
 if (env.development) {
   webpackConfig.devtool = 'source-map';
+
+  webpackConfig.entry.unshift(
+    'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr'
+  );
 
   webpackConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
