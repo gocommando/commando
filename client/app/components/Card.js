@@ -26,9 +26,9 @@ export function Content ({ children }) {
   );
 }
 
-export default function Card ({ children }) {
+export default function Card ({ children, animation = 'bounceInRight', duration = 'short' }) {
   return (
-    <div className='card'>
+    <div className={`card animated ${animation} animated-${duration}`}>
       { children }
     </div>
   );

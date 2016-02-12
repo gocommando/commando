@@ -1,0 +1,13 @@
+@import "~animate.css/source/base";
+@import "~animate.css/source/bouncing_entrances/bounceInRight";
+@import "~animate.css/source/attention_seekers/wobble";
+
+.animated {
+  &.short {
+    animation-duration: 0.75s;
+  }
+
+  &.long {
+    animation-duration: 4s;
+  }
+}
