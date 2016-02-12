@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Card, { Body, Media, Content } from '../components/Card';
 import TimeAgo from 'react-timeago';
 
@@ -8,6 +8,12 @@ const ANIMATION = {
 };
 
 export default class Reminder extends Component {
+  static propTypes = {
+    scheduled: PropTypes.boolean,
+    time: PropTypes.string.isRequired,
+    reminder: PropTypes.string.isRequired
+  };
+
   render () {
     let { scheduled, time, reminder } = this.props;
 
@@ -27,6 +33,6 @@ export default class Reminder extends Component {
           </Body>
         </Content>
       </Card>
-    )
+    );
   }
 }

@@ -3,7 +3,7 @@ import schedule from 'node-schedule';
 
 const currentMonth = () => {
   return new Date().toLocaleString('en-US', { month: 'long' });
-}
+};
 
 const buildTimeString = ({ preposition, time }) => {
   // Handle a scenario where the user says 'on the 13th'
@@ -12,9 +12,9 @@ const buildTimeString = ({ preposition, time }) => {
   } else {
     return `${preposition} ${time}`;
   }
-}
+};
 
-module.exports = {
+export default {
   name: 'Reminder',
   component: 'Reminder',
 

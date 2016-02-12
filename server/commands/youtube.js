@@ -16,7 +16,7 @@ function search (query, callback) {
   }, callback);
 }
 
-module.exports = {
+export default {
   name: 'YouTube',
 
   component: 'YouTube',

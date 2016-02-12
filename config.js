@@ -10,27 +10,25 @@ const base = (...args) => {
   return resolve.apply(resolve, [__dirname, ...args]);
 };
 
-export default {
-  env: {
-    development: ENV === 'development',
-    test: ENV === 'test',
-    production: ENV === 'production'
-  },
-
-  tokens: {
-    google: process.env.GOOGLE_TOKEN
-  },
-
-  paths: {
-    base: base,
-    client: base.bind(null, 'client/app'),
-    server: base.bind(null, 'server'),
-    public: base.bind(null, 'build')
-  },
-
-  configure () {
-    if (!this.tokens.google) {
-      console.error('Error: Missing GOOGLE_TOKEN environment variable.');
-    }
-  }
+export const env = {
+  development: ENV === 'development',
+  test: ENV === 'test',
+  production: ENV === 'production'
 };
+
+export const tokens = {
+  google: process.env.GOOGLE_TOKEN
+};
+
+export const paths = {
+  base: base,
+  client: base.bind(null, 'client'),
+  server: base.bind(null, 'server'),
+  public: base.bind(null, 'build')
+};
+
+export function configure () {
+  if (!tokens.google) {
+    console.error('Error: Missing GOOGLE_TOKEN environment variable.');
+  }
+}

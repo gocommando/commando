@@ -1,5 +1,5 @@
 import { start, stop, connectSocket, disconnectSocket } from '../../support/server';
-import { fixtures, registerDummy, resetCommands } from '../../support/fixtures';
+import { registerDummy, resetCommands } from '../../support/fixtures';
 
 describe('(Sockets) command:invoke', function () {
   before(start);

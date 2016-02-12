@@ -1,5 +1,5 @@
 import axios from 'axios';
-import io from 'socket.io-client'
+import io from 'socket.io-client';
 import { start as startServer } from '../../server';
 
 const PORT = process.env.PORT || 3333;
