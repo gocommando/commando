@@ -9,12 +9,12 @@ if (!env.test) {
   registerDirectory(paths.server('commands/*'));
 }
 
-export function start (port) {
+export function start (port, callback) {
   app.set('port', port);
 
   const server = http.createServer(app);
   socketio(server).on('connection', commandsSocket);
 
-  server.listen(port);
+  server.listen(port, callback);
   return server;
 }
