@@ -2,7 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import Error from '../components/Error';
 
 function findComponent (component) {
-  return require(`../commands/${component}`).default;
+  let mod = require(`../commands/${component}`);
+  return mod.default || mod; // Compat with common JS
 }
 
 function componentFor ({ error, response, id }) {

@@ -12,7 +12,8 @@ export function registerDirectory (path, errback) {
     if (err) return errback(err);
 
     files.forEach(function (file) {
-      register(require(file));
+      let mod = require(file);
+      register(mod.default || mod);
     });
   });
 }
