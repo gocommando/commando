@@ -1,7 +1,7 @@
-import config from '../../config';
+import { tokens } from '../../config';
 import google from 'googleapis';
 
-google.options({ auth: config.tokens.google });
+google.options({ auth: tokens.google });
 
 const youtube = google.youtube('v3');
 
@@ -28,7 +28,7 @@ module.exports = {
   ],
 
   invoke (action, callback) {
-    if (!config.tokens.google) {
+    if (!tokens.google) {
       callback(new Error('This command requires an API token for Google.'));
       return;
     }

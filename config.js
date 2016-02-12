@@ -11,9 +11,11 @@ const base = (...args) => {
 };
 
 export default {
-  development: ENV === 'development',
-  test: ENV === 'test',
-  production: ENV === 'production',
+  env: {
+    development: ENV === 'development',
+    test: ENV === 'test',
+    production: ENV === 'production'
+  },
 
   tokens: {
     google: process.env.GOOGLE_TOKEN
@@ -21,7 +23,8 @@ export default {
 
   paths: {
     base: base,
-    app: base.bind(null, 'client/app'),
+    client: base.bind(null, 'client/app'),
+    server: base.bind(null, 'server'),
     public: base.bind(null, 'build')
   },
 

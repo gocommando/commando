@@ -4,17 +4,11 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import historyApiFallback from 'connect-history-api-fallback';
 import commands from './routes/commands';
-import config from '../config';
-import path from 'path';
-import { registerDirectory } from './lib/commando';
-
-if (!config.test) {
-  registerDirectory(path.join(__dirname, 'commands/*'));
-}
+import { env, paths } from '../config';
 
 const app = express();
 
-if (config.development) {
+if (env.development) {
   app.use(logger('dev'));
 }
 
@@ -28,8 +22,8 @@ app.use(historyApiFallback({
   verbose: false
 }));
 
-if (config.development) {
-  app.use(express.static(config.paths.public()));
+if (env.development) {
+  app.use(express.static(paths.public()));
   require('./middleware/webpack')(app);
 }
 
@@ -44,7 +38,7 @@ app.use((req, res, next) => {
 
 // development error handler
 // will print stacktrace
-if (config.development) {
+if (env.development) {
   app.use((err, req, res, next) => {
     if (err.status !== 404) {
       console.error(err.stack);

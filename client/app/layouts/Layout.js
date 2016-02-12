@@ -8,7 +8,7 @@ export default class Layout extends Component {
   constructor (props, context) {
     super(props, context);
     this.state = { commands: [] };
-    this.socket = io('http://localhost:3000');
+    this.socket = io();
   }
 
   componentDidMount () {

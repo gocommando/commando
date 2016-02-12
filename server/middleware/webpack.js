@@ -1,5 +1,5 @@
 import webpack from 'webpack';
-import webpackConfig from '../../webpack.config';
+import webpackConfig from '../../webpack.config.babel';
 import devMiddleware from 'webpack-dev-middleware';
 import hotMiddleware from 'webpack-hot-middleware';
 

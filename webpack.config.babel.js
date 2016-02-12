@@ -1,16 +1,16 @@
-var config = require('./config');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+import { paths, env } from './config';
+import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-var webpackConfig = {
+const webpackConfig = {
   entry: [
     'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
-    config.paths.app('app.js')
+    paths.client('app.js')
   ],
 
   output: {
     filename: 'app.js',
-    path: config.paths.public()
+    path: paths.public()
   },
 
   module: {
@@ -24,7 +24,7 @@ var webpackConfig = {
       query: {
         cacheDirectory: true,
         plugins: ['transform-runtime'],
-        presets: config.development
+        presets: env.development
           ? ['es2015', 'stage-0', 'react', 'react-hmre']
           : ['es2015', 'stage-0', 'react']
       }
@@ -33,7 +33,7 @@ var webpackConfig = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: config.paths.app('index.html'),
+      template: paths.client('index.html'),
       hash: false,
       filename: 'index.html',
       inject: 'body',
@@ -44,7 +44,7 @@ var webpackConfig = {
   ]
 };
 
-if (config.development) {
+if (env.development) {
   webpackConfig.devtool = 'source-map';
 
   webpackConfig.plugins.push(
@@ -53,4 +53,4 @@ if (config.development) {
   );
 }
 
-module.exports = webpackConfig;
+export default webpackConfig;
