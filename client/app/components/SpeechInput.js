@@ -47,13 +47,13 @@ export default class SpeechInput extends Component {
     return (
       <form onSubmit={ this.handleSubmit.bind(this) } className='speech-input'>
         <p className='control is-grouped'>
-          <input className='input is-medium' type='text'
+          <input className='input is-large' type='text'
                  placeholder='How may I assist you?'
                  autoFocus='true'
                  value={ this.state.message }
                  onChange={ this.handleChange.bind(this) } />
 
-          <a className='button is-outlined is-medium' onClick={ this.startSpeech.bind(this) }>
+          <a className='button is-outlined is-large' onClick={ this.startSpeech.bind(this) }>
             <i className='fa fa-microphone'></i>
           </a>
 
