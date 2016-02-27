@@ -1,4 +1,12 @@
 import React, { Component, PropTypes } from 'react';
+import listeningSound from '../static/sounds/listening.mp3';
+import notListeningSound from '../static/sounds/notlistening.mp3';
+
+function buttonClasses (isListening) {
+  let classes = 'button is-outlined is-large';
+  if (isListening) classes += ' is-loading';
+  return classes;
+}
 
 export default class SpeechInput extends Component {
   static propTypes = {
@@ -13,12 +21,24 @@ export default class SpeechInput extends Component {
   componentDidMount () {
     this.recognizer = new webkitSpeechRecognition();
     this.recognizer.lang = 'en';
+    this.recognizer.interimResults = true;
     this.recognizer.onresult = this.handleSpeech.bind(this);
+    this.recognizer.onstart = this.speechDidStart.bind(this);
+    this.recognizer.onend = this.speechDidEnd.bind(this);
   }
 
   startSpeech () {
     this.recognizer.start();
+  }
+
+  speechDidStart () {
+    new Audio(listeningSound).play();
     this.setState({ message: 'Listening...' });
+  }
+
+  speechDidEnd () {
+    new Audio(notListeningSound).play();
+    this.setState({ message: null });
   }
 
   handleSpeech (event) {
@@ -27,8 +47,11 @@ export default class SpeechInput extends Component {
     let result = event.results[event.results.length - 1];
     let message = result[0].transcript;
 
-    this.setState({ message: null });
-    this.props.onChange(message);
+    this.setState({ message });
+
+    if (result.isFinal) {
+      this.props.onChange(message);
+    }
   }
 
   handleSubmit (event) {
@@ -53,8 +76,8 @@ export default class SpeechInput extends Component {
                  value={ this.state.message }
                  onChange={ this.handleChange.bind(this) } />
 
-          <a className='button is-outlined is-large' onClick={ this.startSpeech.bind(this) }>
-            <i className='fa fa-microphone'></i>
+          <a className={ buttonClasses(this.state.message) } onClick={ this.startSpeech.bind(this) }>
+            { this.state.message ? <noscript /> : <i className='fa fa-microphone'></i> }
           </a>
 
           <input type='submit' style={{display: 'none'}} />

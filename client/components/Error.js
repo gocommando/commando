@@ -11,7 +11,7 @@ export default class Error extends Component {
       <Card>
         <Content>
           <Media>
-            <p className='subtitle is-5'>Error</p>
+            <p className='subtitle is-5'>Whoops!</p>
           </Media>
           <Body>
             <p className='title'>

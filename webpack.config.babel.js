@@ -27,6 +27,9 @@ const webpackConfig = {
           ? ['es2015', 'stage-0', 'react', 'react-hmre']
           : ['es2015', 'stage-0', 'react']
       }
+    }, {
+      test: /\.mp3$/,
+      loader: 'file'
     }]
   },
 

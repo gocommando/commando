@@ -12,7 +12,7 @@ export function invoke (client, { message }) {
   let command = recognizeCommand(message);
 
   if (!command) {
-    emitError(client, message, 'Not found');
+    emitError(client, message, "I didn't recognize that.");
     return;
   }
 

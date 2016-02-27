@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SpeechInput from '../components/SpeechInput';
 import CommandList from '../components/CommandList';
+import Header from './Header';
 import { uniqueId, extend } from 'lodash';
 import io from 'socket.io-client';
 
@@ -38,22 +39,7 @@ export default class Layout extends Component {
     return (
       <div>
         <section className='hero is-primary is-medium'>
-          <div className='hero-header'>
-            <header className='header'>
-              <div className='container'>
-                <div className='header-left'>
-                  <a className='header-item title' href='#'>
-                    Commando
-                  </a>
-                </div>
-                <span className='header-toggle'>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </span>
-              </div>
-            </header>
-          </div>
+          <Header />
 
           <div className='hero-content'>
             <div className='container'>
