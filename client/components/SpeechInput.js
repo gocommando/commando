@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { get } from 'axios';
 import listeningSound from '../static/sounds/listening.mp3';
 import notListeningSound from '../static/sounds/notlistening.mp3';
 
@@ -8,6 +9,24 @@ function buttonClasses (isListening) {
   return classes;
 }
 
+function rotateThrough (data, callback) {
+  let i = 0;
+  setInterval(() => {
+    i++;
+    let val = data[i % data.length];
+    callback(null, val.example);
+  }, 1000);
+}
+
+async function rotateExamples (callback) {
+  try {
+    let result = await get('/api/commands');
+    rotateThrough(result.data, callback);
+  } catch (e) {
+    callback(e);
+  }
+}
+
 export default class SpeechInput extends Component {
   static propTypes = {
     onChange: PropTypes.func.isRequired
@@ -15,7 +34,11 @@ export default class SpeechInput extends Component {
 
   constructor (props, context) {
     super(props, context);
-    this.state = { message: null };
+    this.commands = [];
+    this.state = {
+      message: null,
+      example: null
+    };
   }
 
   componentDidMount () {
@@ -25,6 +48,11 @@ export default class SpeechInput extends Component {
     this.recognizer.onresult = this.handleSpeech.bind(this);
     this.recognizer.onstart = this.speechDidStart.bind(this);
     this.recognizer.onend = this.speechDidEnd.bind(this);
+    rotateExamples(this.changeExample.bind(this));
+  }
+
+  changeExample (err, example) {
+    this.setState({ example });
   }
 
   startSpeech () {
@@ -69,7 +97,7 @@ export default class SpeechInput extends Component {
   render () {
     return (
       <form onSubmit={ this.handleSubmit.bind(this) } className='speech-input'>
-        <p className='control is-grouped'>
+        <div className='control is-grouped'>
           <input className='input is-large' type='text'
                  placeholder='How may I assist you?'
                  autoFocus='true'
@@ -81,7 +109,12 @@ export default class SpeechInput extends Component {
           </a>
 
           <input type='submit' style={{display: 'none'}} />
-        </p>
+        </div>
+
+        { this.state.example
+            ? <div>Try { `"${this.state.example }"` }</div>
+            : <noscript /> }
+
       </form>
     );
   }

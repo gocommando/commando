@@ -20,6 +20,8 @@ export default {
 
   pattern: /remind me to (.+) (in|on|at) (.+)/i,
 
+  example: 'Remind me to pick up the dry cleaning in 5 minutes',
+
   properties: [
     { name: 'reminder' },
     { name: 'preposition' },

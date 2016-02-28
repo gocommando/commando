@@ -3,6 +3,8 @@ export default {
 
   component: 'Weather',
 
+  example: "What's the weather?",
+
   pattern: /weather/i,
 
   invoke (action, callback) {

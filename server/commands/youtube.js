@@ -21,6 +21,8 @@ export default {
 
   component: 'YouTube',
 
+  example: 'Play cat videos from YouTube',
+
   pattern: /play (.+) (from|on|with) youtube/i,
 
   properties: [

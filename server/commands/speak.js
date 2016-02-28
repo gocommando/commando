@@ -4,6 +4,8 @@ export default {
 
   pattern: /say (.+)/i,
 
+  example: 'Say "hi"',
+
   properties: [
     { name: 'message' }
   ],

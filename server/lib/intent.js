@@ -19,7 +19,7 @@ const defaults = {
   properties: [],
 
   toJSON () {
-    return pick(this, 'intent', 'name', 'component', 'properties');
+    return pick(this, 'intent', 'name', 'component', 'properties', 'example');
   }
 };
 
