@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Card, { Media, Content, Body } from '../components/Card';
+import Card, { Media, Content, Body } from './Card';
 
 export default class Error extends Component {
   static propTypes = {

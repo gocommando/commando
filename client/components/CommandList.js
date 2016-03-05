@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import Error from '../components/Error';
+import Error from './Error';
 
 function findComponent (command) {
   let mod = require(`client/${command.component}`);

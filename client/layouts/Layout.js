@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import SpeechInput from '../components/SpeechInput';
-import CommandList from '../components/CommandList';
+import SpeechInput from 'components/SpeechInput';
+import CommandList from 'components/CommandList';
 import Header from './Header';
 import { uniqueId, extend } from 'lodash';
 import io from 'socket.io-client';
