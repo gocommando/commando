@@ -12,11 +12,14 @@ function buttonClasses (isListening) {
 
 function rotateThrough (data, callback) {
   let i = 0;
+
+  callback(null, data[0].example);
+
   setInterval(() => {
     i++;
     let val = data[i % data.length];
     callback(null, val.example);
-  }, 1000);
+  }, 2000);
 }
 
 async function rotateExamples (callback) {
