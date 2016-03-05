@@ -2,11 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import { get } from 'axios';
 import listeningSound from '../static/sounds/listening.mp3';
 import notListeningSound from '../static/sounds/notlistening.mp3';
+import classnames from 'classnames';
 
 function buttonClasses (isListening) {
-  let classes = 'button is-outlined is-large';
-  if (isListening) classes += ' is-loading';
-  return classes;
+  return classnames('button is-outlined is-large', {
+    'is-loading': isListening
+  });
 }
 
 function rotateThrough (data, callback) {
