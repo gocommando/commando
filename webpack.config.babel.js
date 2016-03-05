@@ -1,4 +1,5 @@
-import { paths, env } from './config';
+import { paths, env } from 'config';
+import { paths as pluginPaths } from 'plugins';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
@@ -6,6 +7,13 @@ const webpackConfig = {
   entry: [
     paths.client('app.js')
   ],
+
+  resolve: {
+    root: [
+      paths.client(),
+      ...pluginPaths()
+    ]
+  },
 
   output: {
     filename: 'app.js',

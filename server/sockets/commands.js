@@ -1,5 +1,5 @@
 import { extend } from 'lodash';
-import { recognizeCommand } from '../lib/commando';
+import { recognizeCommand } from 'commando';
 
 function emitError (client, message, errMsg) {
   client.emit('command:error', {

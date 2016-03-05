@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Card, { Content } from '../components/Card';
-import Loading from '../components/Loading';
+import Card, { Content } from 'components/Card';
+import Loading from 'components/Loading';
 
 const BASE_URI = 'https://forecast.io/embed/#';
 

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Card, { Media, Body, Content } from '../components/Card';
+import Card, { Media, Body, Content } from 'components/Card';
 
 function Player ({ videoId }) {
   return (

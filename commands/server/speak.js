@@ -1,5 +1,6 @@
 export default {
   name: 'Speak',
+
   component: 'Speak',
 
   pattern: /say (.+)/i,

@@ -16,6 +16,7 @@ const buildTimeString = ({ preposition, time }) => {
 
 export default {
   name: 'Reminder',
+
   component: 'Reminder',
 
   pattern: /remind me to (.+) (in|on|at) (.+)/i,

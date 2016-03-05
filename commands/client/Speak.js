@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Card, { Body, Media, Content } from '../components/Card';
+import Card, { Body, Media, Content } from 'components/Card';
 import { once } from 'lodash';
 
 function findVoiceSync (name) {

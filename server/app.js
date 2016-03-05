@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import historyApiFallback from 'connect-history-api-fallback';
 import commands from './routes/commands';
-import { env, paths } from '../config';
+import { env, paths } from 'config';
 
 const app = express();
 
@@ -25,7 +25,7 @@ app.use(historyApiFallback({
 app.use(express.static(paths.public()));
 
 if (env.development) {
-  require('./middleware/webpack')(app);
+  require('./middleware/webpack').default(app);
 }
 
 // catch 404 and forward to error handler
