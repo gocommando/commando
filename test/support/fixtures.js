@@ -1,7 +1,7 @@
 import {
   register,
   commands
-} from '../../server/lib/commando';
+} from 'commando';
 
 export const fixtures = {
   dummy: {
@@ -24,6 +24,7 @@ export const fixtures = {
   dummyJSON: {
     name: 'Blah',
     intent: 'blah',
+    component: 'Blah',
     properties: [
       { name: 'keyword' }
     ]

@@ -4,7 +4,7 @@ import {
   serializeCommands,
   findCommand,
   recognizeCommand
-} from '../server/lib/commando';
+} from 'commando';
 
 import {
   registerDummy,

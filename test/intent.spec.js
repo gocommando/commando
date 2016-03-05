@@ -1,4 +1,4 @@
-import { regex } from '../server/lib/intent';
+import { regex } from 'intent';
 import { fixtures } from './support/fixtures';
 
 describe('intent', () => {

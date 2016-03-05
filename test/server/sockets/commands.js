@@ -22,7 +22,7 @@ describe('(Sockets) command:invoke', function () {
 
   it('emits command:error when command is not found', function (done) {
     this.socket.on('command:error', ({ data }) => {
-      expect(data.error).to.equal('Not found');
+      expect(data.error).to.equal("I didn't recognize that.");
       done();
     });
 

@@ -6,7 +6,7 @@
     "start": "NODE_PATH=lib node ./bin/www",
     "start:dev": "DEBUG=commando:*,socket.io:* nodemon --exec \"npm start\" --ignore client/",
     "compile": "NODE_ENV=production webpack",
-    "test": "NODE_ENV=test mocha",
+    "test": "NODE_PATH=lib NODE_ENV=test mocha",
     "test:dev": "npm run test -- --watch",
     "lint": "eslint . ./",
     "lint:fix": "npm run lint -- --fix",

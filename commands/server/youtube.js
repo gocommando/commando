@@ -19,8 +19,6 @@ function search (query, callback) {
 export default {
   name: 'YouTube',
 
-  component: 'YouTube',
-
   example: 'Play cat videos from YouTube',
 
   pattern: /play (.+) (from|on|with) youtube/i,
