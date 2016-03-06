@@ -5,6 +5,7 @@ node_js:
 
 env:
   - CXX=g++-4.8
+
 addons:
   apt:
     sources:
@@ -14,3 +15,9 @@ addons:
 
 before_script:
   - npm run lint
+
+deploy:
+  provider: heroku
+  app: gocommando
+  api_key:
+    secure: HqSpehJ53112nJI+VIKDdCTQw7fUZ457fKeMALhxTCTrlMTWArijSlzgVpDVZpAHxrUvC+M8CJqjXABnjFyEfEcdbdo650yNyMYLjfA8LewzAKW0DZBMBnMPTkMhFWVNiZ0sNSrp949iI4ZrkpkRKBJh4CTKL3Mv85LRSkG9oOwFXWEHhHVhq2V3vUF56w51hMoMhcX4R0ovPTOc1DQ0pLJdVqMitbEjTKs+zQFxlfi595KdC0MkU7DQ/8LcTUmFyLZfSU9HAIIe4Wc6tU1hVb5ZljLcrbJ4xTVyzuBkqKNnaD+opDE5oqUjp28ojekF4tz8Lz6ft8HZfW+5C9yoVtcYGXJhC21UjAjjBDlSfF6i7aFeCcnmL+1c77vmE62Ebt5KHs0NGthhVyj/sTGKERWauDXR8RB1oneZi9blynkaD+FKd9/Np5UtaNF7ak/sjT/gearhTHFSfSBaLHAl+bzfgE8fBoEuE1Nh6qPtQcZn9E1pnDRUzh3fNpAAWBYCYjxpqTripQqJeXBPbJ8OOILGa6fBqtaxlE7xtsuBbGZ3rWATTKjNkDFKQPUZcSa58cQAXITqaWUcGMvkwRbWs/aoK9ws7cgkRLFddtUYH1Rn1I9PrSZdz2NwXjZr6cyAbkFIRE94BkbVLijw318TNOlTFoRizCPBf7r3wCSZETY=
