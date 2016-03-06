@@ -18,6 +18,14 @@ Commando is an open-source, voice-driven, personal assistant. Basically, an open
 
 ## Creating your own plugins
 
-Take a look at [commando-alert](https://gist.github.com/rzane/c533081aa21a0e0fef17) for an example.
+Take a look at [commando-repeat](https://gist.github.com/rzane/c533081aa21a0e0fef17) for an example.
 
-Once your plugin is installed, the entry file in your `package.json` will be automatically require. Then, you need to do is require your component in [client/commands.js](client/commands.js).
+A plugin must consist of three things:
+
+1. A `package.json` with a name starting with `commando-`.
+2. An entry point that calls `register`. This handles the server-side processing and recognition of your command.
+3. A React component that will be rendered when your command is recognized.
+
+Once you `npm install` your plugin, commando will automatically require it. Then, you need to do is require your React component in [client/commands.js](client/commands.js).
+
+*Note: If your entry point uses ES6, don't forget to add an install script to your package.json. See the `commando-repeat` package.json for an example.*
