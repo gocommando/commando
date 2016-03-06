@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import Error from './Error';
 
 function findComponent (command) {
-  let mod = require(`client/${command.component}`);
+  let mod = require(`babel-loader!client/${command.component}`);
   return mod.default || mod; // Compat with common JS
 }
 
