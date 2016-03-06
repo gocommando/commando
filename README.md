@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/rzane/commando.svg?branch=master)](https://travis-ci.org/rzane/commando)
+
 # Commando
 
 Commando is an open-source, voice-driven, personal assistant. Basically, an open-source version of Google Now. Commando was built with extensibility in mind, so that you can create your own commands.
