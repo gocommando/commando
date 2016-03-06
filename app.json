@@ -5,7 +5,12 @@
   "keywords": ["node", "express", "socketio", "commando", "google", "now"],
   "env": {
     "NPM_CONFIG_PRODUCTION": {
+      "description": "Running webpack is part of the deploy process, so we install dev dependencies in production.",
       "value": "false"
+    },
+    "GOOGLE_TOKEN": {
+      "description": "Google API token. Only necessary for certain commands.",
+      "required": false
     }
   }
 }
