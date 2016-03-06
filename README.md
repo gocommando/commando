@@ -18,4 +18,6 @@ Commando is an open-source, voice-driven, personal assistant. Basically, an open
 
 ## Creating your own plugins
 
-Take a look at [commando-alert](https://github.com/rzane/commando-alert) for an example. Plugins that are added to the `package.json` are autoloaded.
+Take a look at [commando-alert](https://gist.github.com/rzane/c533081aa21a0e0fef17) for an example.
+
+Once your plugin is installed, the entry file in your `package.json` will be automatically require. Then, you need to do is require your component in [client/commands.js](client/commands.js).

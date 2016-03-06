@@ -9,10 +9,7 @@ const webpackConfig = {
   ],
 
   resolve: {
-    root: [
-      paths.client(),
-      ...pluginPaths()
-    ]
+    root: paths.client()
   },
 
   output: {
@@ -26,7 +23,7 @@ const webpackConfig = {
       loaders: ['style', 'css', 'sass']
     }, {
       test: /\.(js|jsx)$/,
-      exclude: /node_modules/,
+      exclude: /node_modules\/(?!commando-)/,
       loader: 'babel',
       query: {
         cacheDirectory: true,

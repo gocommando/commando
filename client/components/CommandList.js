@@ -1,17 +1,14 @@
 import React, { PropTypes, Component } from 'react';
 import Error from './Error';
-
-function findComponent (command) {
-  let mod = require(`babel-loader!client/${command.component}`);
-  return mod.default || mod; // Compat with common JS
-}
+import { find as findCommand } from '../commands';
 
 function componentFor ({ error, response, id }) {
   if (error) {
     return <Error { ...error } key={ id }/>;
   } else {
-    let Command = findComponent(response);
-    return <Command { ...response.props } key={ id } />;
+    let component = findCommand(response.component);
+    let props = { ...response.props, key: id };
+    return React.createElement(component, props);
   }
 }
 
