@@ -28,4 +28,4 @@ A plugin must consist of three things:
 
 Once you `npm install` your plugin, commando will automatically require it. Then, you need to do is require your React component in [client/commands.js](client/commands.js).
 
-*Note: If your entry point uses ES6, don't forget to add an install script to your package.json. See the `commando-repeat` package.json for an example.*
+*Note: If your entry point uses ES6, don't forget to add an postinstall script to your package.json. See the `commando-repeat` package.json for an example.*
