@@ -1,8 +1,8 @@
 import Repeat from 'commando-repeat/Repeat';
-import Reminder from '../commands/client/Reminder';
-import Speak from '../commands/client/Speak';
-import Weather from '../commands/client/Weather';
-import YouTube from '../commands/client/YouTube';
+import Reminder from './commands/Reminder';
+import Speak from './commands/Speak';
+import Weather from './commands/Weather';
+import YouTube from './commands/YouTube';
 
 const components = {
   Repeat,
