@@ -1,5 +1,4 @@
 import { paths, env } from 'config';
-import { paths as pluginPaths } from 'plugins';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 

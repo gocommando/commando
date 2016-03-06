@@ -2,7 +2,7 @@ import http from 'http';
 import socketio from 'socket.io';
 import app from './app';
 import commandsSocket from './sockets/commands';
-import { paths, env } from 'config';
+import { env } from 'config';
 import { load as loadPlugins } from 'plugins';
 
 if (!env.test) {

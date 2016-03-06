@@ -56,7 +56,9 @@ export default class SpeechInput extends Component {
   }
 
   changeExample (err, example) {
-    this.setState({ example });
+    if (!err) {
+      this.setState({ example });
+    }
   }
 
   startSpeech () {
