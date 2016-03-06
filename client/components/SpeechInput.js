@@ -41,7 +41,7 @@ export default class SpeechInput extends Component {
     this.commands = [];
     this.state = {
       message: null,
-      example: null
+      example: 'How may I assist you?'
     };
   }
 
@@ -103,7 +103,7 @@ export default class SpeechInput extends Component {
       <form onSubmit={ this.handleSubmit.bind(this) } className='speech-input'>
         <div className='control is-grouped'>
           <input className='input is-large' type='text'
-                 placeholder='How may I assist you?'
+                 placeholder={ this.state.example }
                  autoFocus='true'
                  value={ this.state.message }
                  onChange={ this.handleChange.bind(this) } />
@@ -114,11 +114,6 @@ export default class SpeechInput extends Component {
 
           <input type='submit' style={{display: 'none'}} />
         </div>
-
-        { this.state.example
-            ? <div>Try { `"${this.state.example }"` }</div>
-            : <noscript /> }
-
       </form>
     );
   }
