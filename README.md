@@ -28,6 +28,6 @@ A plugin must consist of three things:
 2. An entry point that calls `register`. This handles the server-side processing and recognition of your command.
 3. A React component that will be rendered when your command is recognized.
 
-Once you `npm install` your plugin, commando will automatically require it. Then, you need to do is require your React component in [client/commands.js](client/commands.js).
+Once you `npm install` your plugin, commando will automatically load it.
 
 *Note: If your entry point uses ES6, don't forget to add an postinstall script to your package.json. See the `commando-repeat` package.json for an example.*

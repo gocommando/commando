@@ -4,7 +4,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 const webpackConfig = {
   entry: [
-    paths.client('app.js')
+    paths.client('app.js'),
   ],
 
   resolve: {
@@ -18,6 +18,9 @@ const webpackConfig = {
 
   module: {
     loaders: [{
+      test: /commands\.js/,
+      loader: paths.lib('command-loader')
+    }, {
       test: /\.scss$/,
       loaders: ['style', 'css', 'sass']
     }, {

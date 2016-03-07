@@ -1,5 +1,9 @@
+import { paths } from 'config';
+
 export default {
   name: 'Speak',
+
+  component: paths.client('commands/Speak'),
 
   pattern: /say (.+)/i,
 

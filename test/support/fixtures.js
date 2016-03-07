@@ -7,6 +7,7 @@ export const fixtures = {
   dummy: {
     name: 'Blah',
     pattern: /foo (.*)/,
+    component: '/fake/path',
     properties: [
       { name: 'keyword' }
     ],
@@ -24,7 +25,6 @@ export const fixtures = {
   dummyJSON: {
     name: 'Blah',
     intent: 'blah',
-    component: 'Blah',
     properties: [
       { name: 'keyword' }
     ]

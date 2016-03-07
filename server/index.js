@@ -6,7 +6,6 @@ import { env } from 'config';
 import { load as loadPlugins } from 'plugins';
 
 if (!env.test) {
-  require('./commands');
   loadPlugins();
 }
 

@@ -1,5 +1,9 @@
+import { paths } from 'config';
+
 export default {
   name: 'Weather',
+
+  component: paths.client('commands/Weather'),
 
   example: "What's the weather?",
 

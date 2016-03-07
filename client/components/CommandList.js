@@ -1,12 +1,21 @@
 import React, { PropTypes, Component } from 'react';
 import Error from './Error';
-import { find as findCommand } from '../commands';
+import commands from '../commands';
+
+function findComponent (name) {
+  if (!commands[name]) {
+    const available = Object.keys(commands);
+    throw new Error(`Component '${name}' not found. The following components have been loaded: ${available}`);
+  }
+
+  return commands[name];
+}
 
 function componentFor ({ error, response, id }) {
   if (error) {
     return <Error { ...error } key={ id }/>;
   } else {
-    let component = findCommand(response.component);
+    let component = findComponent(response.name);
     let props = { ...response.props, key: id };
     return React.createElement(component, props);
   }

@@ -1,4 +1,4 @@
-import { tokens } from 'config';
+import { paths, tokens } from 'config';
 import google from 'googleapis';
 
 google.options({ auth: tokens.google });
@@ -18,6 +18,8 @@ function search (query, callback) {
 
 export default {
   name: 'YouTube',
+
+  component: paths.client('commands/YouTube'),
 
   example: 'Play cat videos from YouTube',
 

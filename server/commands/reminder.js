@@ -1,5 +1,6 @@
 import chrono from 'chrono-node';
 import schedule from 'node-schedule';
+import { paths } from 'config';
 
 const currentMonth = () => {
   return new Date().toLocaleString('en-US', { month: 'long' });
@@ -16,6 +17,8 @@ const buildTimeString = ({ preposition, time }) => {
 
 export default {
   name: 'Reminder',
+
+  component: paths.client('commands/Reminder'),
 
   pattern: /remind me to (.+) (in|on|at) (.+)/i,
 
