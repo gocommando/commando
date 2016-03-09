@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import Error from './Error';
+import Logo from './Logo';
 import commands from '../commands';
 
 function findComponent (name) {
@@ -30,7 +31,9 @@ export default class CommandList extends Component {
     return (
       <section className='command-list'>
         <div className='container'>
-          { this.props.commands.map(componentFor) }
+          { this.props.commands.length
+              ? this.props.commands.map(componentFor)
+              : <Logo /> }
         </div>
       </section>
     );

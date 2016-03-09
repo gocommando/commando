@@ -35,7 +35,7 @@ const webpackConfig = {
           : ['es2015', 'stage-0', 'react']
       }
     }, {
-      test: /\.mp3$/,
+      test: /\.(mp3|png)$/,
       loader: 'file'
     }]
   },

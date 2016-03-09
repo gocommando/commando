@@ -10,6 +10,14 @@ export function Media ({ children }) {
   );
 }
 
+export function Image (props) {
+  return (
+    <div className='card-image is-constrained'>
+      <img {...props}></img>
+    </div>
+  );
+}
+
 export function Body ({ children }) {
   return (
     <div className='content'>

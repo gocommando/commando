@@ -1,3 +1,14 @@
-.speech-input .button {
-  color: $primary;
+.speech-input {
+  .button {
+    color: $primary;
+  }
+
+  .button.is-loading:after {
+    border-color: transparent transparent $primary $primary !important
+  }
+
+  .input:focus + .button,
+  .input:active + .button {
+    border-color: $primary;
+  }
 }

@@ -38,7 +38,7 @@ export default class Layout extends Component {
   render () {
     return (
       <div>
-        <section className='hero is-primary is-bold'>
+        <section className='hero is-primary'>
           <Header />
 
           <div className='hero-content'>

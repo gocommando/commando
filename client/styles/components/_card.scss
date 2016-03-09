@@ -16,4 +16,9 @@
       border-bottom: none;
     }
   }
+
+  .card-image.is-constrained > img {
+    max-height: 350px;
+    margin: 0 auto;
+  }
 }
