@@ -1,42 +1,26 @@
 import io from 'socket.io-client';
 import { extend } from 'lodash';
 import { v1 as generateId } from 'node-uuid';
+import storage from './localstorage';
 import EventEmitter from 'events';
-
-function readFromStorage () {
-  try {
-    return JSON.parse(localStorage.getItem('commands')) || [];
-  } catch (e) {
-    // Possibly corrupted
-    localStorage.removeItem('commands');
-    return [];
-  }
-}
-
-function writeToStorage (commands) {
-  try {
-    localStorage.setItem('commands', JSON.stringify(commands));
-    return true;
-  } catch (e) {
-    return false;
-  }
-}
 
 function identify (data) {
   return extend({ id: generateId() }, data);
 }
 
+const store = storage('commands', []);
+
 export default class CommandStore extends EventEmitter {
   constructor () {
     super();
     this.socket = io();
-    this.commands = readFromStorage();
+    this.commands = store.read();
     this.invoke = this.socket.emit.bind(this.socket, 'command:invoke');
   }
 
   trigger (commands) {
     this.commands = commands;
-    writeToStorage(commands);
+    store.write(commands);
     this.emit('change', commands);
   }
 

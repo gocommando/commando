@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import logo from 'static/images/logo.png';
 
@@ -18,6 +18,10 @@ function animatedLogo (animation) {
 }
 
 export default class Introduction extends Component {
+  static propTypes = {
+    showAnimation: PropTypes.bool.isRequired
+  };
+
   constructor (props, context) {
     super(props, context);
     this.state = { animation: 0 };
@@ -34,7 +38,7 @@ export default class Introduction extends Component {
   render () {
     const animation = ANIMATIONS[this.state.animation];
 
-    if (animation) {
+    if (animation && this.props.showAnimation) {
       return animatedLogo(animation);
     } else {
       return (

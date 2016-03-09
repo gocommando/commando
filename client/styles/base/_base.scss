@@ -4,6 +4,9 @@
 $primary: #FF5722;
 
 @import "~bulma/bulma/config/generated-variables";
+
+$link-hover: darken($primary, 20%);
+
 @import "~bulma/bulma/base/base";
 @import "~bulma/bulma/elements/elements";
 @import "~bulma/bulma/components/components";

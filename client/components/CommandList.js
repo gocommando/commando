@@ -2,6 +2,9 @@ import React, { PropTypes, Component } from 'react';
 import Introduction from './Introduction';
 import Error from './Error';
 import commands from '../commands';
+import storage from '../services/localstorage';
+
+const store = storage('introduction', { shown: true });
 
 function findComponent (name) {
   if (!commands[name]) {
@@ -28,13 +31,22 @@ export default class CommandList extends Component {
     reset: PropTypes.func.isRequired
   };
 
+  componentDidMount () {
+    store.write({ shown: false });
+  }
+
+  reset (event) {
+    store.write({ shown: true });
+    this.props.reset(event);
+  }
+
   renderReset () {
     if (!this.props.commands.length) return;
 
     return (
-      <div className='card'>
+      <div className='card animated fadeInUp'>
         <div className='card-content'>
-          <a href='#' className='content' onClick={ this.props.reset }>
+          <a href='#' className='content' onClick={ this.reset.bind(this) }>
             Reset Commands
           </a>
         </div>
@@ -48,7 +60,7 @@ export default class CommandList extends Component {
         <div className='container'>
           { this.props.commands.length
               ? this.props.commands.map(componentFor)
-              : <Introduction /> }
+              : <Introduction showAnimation={ store.read().shown } /> }
 
           { this.renderReset() }
         </div>

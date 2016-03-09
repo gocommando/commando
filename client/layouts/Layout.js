@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CommandSocket from '../command-socket';
+import CommandService from 'services/commands';
 import SpeechInput from 'components/SpeechInput';
 import CommandList from 'components/CommandList';
 import Header from './Header';
@@ -8,7 +8,7 @@ export default class Layout extends Component {
   constructor (props, context) {
     super(props, context);
     this.state = { commands: [] };
-    this.socket = new CommandSocket();
+    this.socket = new CommandService();
     this.invoke = (message) => this.socket.invoke({ message });
   }
 

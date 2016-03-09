@@ -19,7 +19,7 @@ const webpackConfig = {
 
   module: {
     loaders: [{
-      test: /commands\.js/,
+      test: new RegExp(paths.client('commands.js')),
       loader: paths.config('command-loader')
     }, {
       test: /\.scss$/,
