@@ -1,7 +1,6 @@
 import io from 'socket.io-client';
 import { extend } from 'lodash';
 import { create as createGuid } from 'guid';
-import remove from 'lodash/fp/remove';
 import EventEmitter from 'events';
 
 function readFromStorage () {
@@ -23,7 +22,7 @@ function writeToStorage (commands) {
   }
 }
 
-function identify(data) {
+function identify (data) {
   return extend({ id: createGuid() }, data);
 }
 
@@ -43,7 +42,7 @@ export default class CommandStore extends EventEmitter {
 
   listen (callback) {
     this.socket.on('command:error', this.handleError.bind(this));
-    this.socket.on('command:success', this.handleSuccess.bind(this))
+    this.socket.on('command:success', this.handleSuccess.bind(this));
     this.on('change', callback);
     this.emit('change', this.commands);
   }

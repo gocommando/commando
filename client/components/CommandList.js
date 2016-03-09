@@ -24,7 +24,8 @@ function componentFor ({ error, response, id }) {
 
 export default class CommandList extends Component {
   static propTypes = {
-    commands: PropTypes.array.isRequired
+    commands: PropTypes.array.isRequired,
+    reset: PropTypes.func.isRequired
   };
 
   renderReset () {
