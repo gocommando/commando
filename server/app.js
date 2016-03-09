@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import historyApiFallback from 'connect-history-api-fallback';
 import commands from './routes/commands';
-import { env, paths } from 'config';
+import { env, paths } from '../config';
 
 const app = express();
 

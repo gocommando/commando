@@ -1,4 +1,4 @@
-import { paths } from 'config';
+import { paths } from '../../config';
 
 export default {
   name: 'Speak',

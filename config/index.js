@@ -26,6 +26,7 @@ export const tokens = {
 export const paths = {
   base: base,
   lib: base.bind(null, 'lib'),
+  config: base.bind(null, 'config'),
   client: base.bind(null, 'client'),
   server: base.bind(null, 'server'),
   public: base.bind(null, 'build')

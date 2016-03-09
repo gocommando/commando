@@ -2,12 +2,7 @@ import http from 'http';
 import socketio from 'socket.io';
 import app from './app';
 import commandsSocket from './sockets/commands';
-import { env } from 'config';
-import { load as loadPlugins } from 'plugins';
-
-if (!env.test) {
-  loadPlugins();
-}
+import '../config/boot';
 
 export function start (port, callback) {
   app.set('port', port);

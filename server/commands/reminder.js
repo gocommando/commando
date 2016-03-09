@@ -1,6 +1,6 @@
 import chrono from 'chrono-node';
 import schedule from 'node-schedule';
-import { paths } from 'config';
+import { paths } from '../../config';
 
 const currentMonth = () => {
   return new Date().toLocaleString('en-US', { month: 'long' });

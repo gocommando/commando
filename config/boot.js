@@ -1,3 +1,4 @@
+import { env } from './index';
 import packageJSON from '../package.json';
 import debug from 'debug';
 
@@ -12,7 +13,7 @@ function pluginNames () {
   return packages.filter(dependencyFilter);
 }
 
-export function load () {
+if (!env.test) {
   require('../server/commands');
 
   pluginNames().forEach(plugin => {

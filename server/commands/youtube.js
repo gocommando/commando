@@ -1,4 +1,4 @@
-import { paths, tokens } from 'config';
+import { paths, tokens } from '../../config';
 import google from 'googleapis';
 
 google.options({ auth: tokens.google });

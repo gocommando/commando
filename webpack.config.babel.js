@@ -1,10 +1,10 @@
-import { paths, env } from 'config';
+import { paths, env } from './config';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 const webpackConfig = {
   entry: [
-    paths.client('app.js'),
+    paths.client('app.js')
   ],
 
   resolve: {
@@ -19,7 +19,7 @@ const webpackConfig = {
   module: {
     loaders: [{
       test: /commands\.js/,
-      loader: paths.lib('command-loader')
+      loader: paths.config('command-loader')
     }, {
       test: /\.scss$/,
       loaders: ['style', 'css', 'sass']
