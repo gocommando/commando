@@ -1,6 +1,7 @@
 import { paths, env } from './config';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import WebpackNotifierPlugin from 'webpack-notifier';
 
 const webpackConfig = {
   entry: [
@@ -63,7 +64,11 @@ if (env.development) {
 
   webpackConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new WebpackNotifierPlugin({
+      title: 'Commando',
+      contentImage: paths.client('static/images/logo.png')
+    })
   );
 }
 
