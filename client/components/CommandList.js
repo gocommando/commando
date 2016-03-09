@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
+import Introduction from './Introduction';
 import Error from './Error';
-import Logo from './Logo';
 import commands from '../commands';
 
 function findComponent (name) {
@@ -33,7 +33,7 @@ export default class CommandList extends Component {
         <div className='container'>
           { this.props.commands.length
               ? this.props.commands.map(componentFor)
-              : <Logo /> }
+              : <Introduction /> }
         </div>
       </section>
     );

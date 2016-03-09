@@ -1,6 +1,9 @@
 @import "~animate.css/source/base";
 @import "~animate.css/source/bouncing_entrances/bounceInRight";
+@import "~animate.css/source/zooming_entrances/zoomInRight";
+@import "~animate.css/source/zooming_exits/zoomOutLeft";
 @import "~animate.css/source/attention_seekers/wobble";
+@import "~animate.css/source/attention_seekers/swing";
 
 .animated {
   &.short {

@@ -5,4 +5,32 @@
     width: 100%;
     margin-bottom: 15px;
   }
+
+  .introduction-logo {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    .introduction-backdrop {
+      height: 100%;
+      width: 100%;
+      position: fixed;
+      background-color: #000;
+      opacity: 0.3;
+    }
+
+    .logo {
+      display: block;
+      max-height: 400px;
+      margin: 0 auto;
+      margin-top: 10%;
+    }
+  }
+
+  .introduction {
+    text-align: center;
+    color: $grey;
+  }
 }
