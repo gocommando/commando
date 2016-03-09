@@ -1,4 +1,4 @@
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy) [![Build Status](https://travis-ci.org/rzane/commando.svg?branch=master)](https://travis-ci.org/rzane/commando)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy) [![Build Status](https://travis-ci.org/gocommando/commando.svg?branch=master)](https://travis-ci.org/rzane/commando)
 
 # Commando
 
