@@ -25,7 +25,7 @@ const webpackConfig = {
       loaders: ['style', 'css', 'sass']
     }, {
       test: /\.(js|jsx)$/,
-      exclude: /node_modules\/(?!commando-)/,
+      exclude: /node_modules/,
       loader: 'babel',
       query: {
         cacheDirectory: true,
