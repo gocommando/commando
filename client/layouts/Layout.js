@@ -1,34 +1,23 @@
 import React, { Component } from 'react';
+import CommandSocket from '../command-socket';
 import SpeechInput from 'components/SpeechInput';
 import CommandList from 'components/CommandList';
 import Header from './Header';
-import { uniqueId, extend } from 'lodash';
-import io from 'socket.io-client';
 
 export default class Layout extends Component {
   constructor (props, context) {
     super(props, context);
     this.state = { commands: [] };
-    this.socket = io();
+    this.socket = new CommandSocket();
   }
 
   componentDidMount () {
-    this.socket.on('command:error', ({ message, data }) => {
-      this.pushCommand({ message, error: data });
-    });
-
-    this.socket.on('command:success', ({ message, data }) => {
-      this.pushCommand({ message, response: data });
-    });
+    this.socket.onMessage(this.pushCommand.bind(this));
+    this.setState({ commands: this.socket.savedCommands() });
   }
 
   pushCommand (command) {
-    this.setState({
-      commands: [
-        extend({id: uniqueId()}, command),
-        ...this.state.commands
-      ]
-    });
+    this.setState({ commands: [command, ...this.state.commands] });
   }
 
   handleChange (message) {
