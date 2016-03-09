@@ -27,6 +27,20 @@ export default class CommandList extends Component {
     commands: PropTypes.array.isRequired
   };
 
+  renderReset () {
+    if (!this.props.commands.length) return;
+
+    return (
+      <div className='card'>
+        <div className='card-content'>
+          <a href='#' className='content' onClick={ this.props.reset }>
+            Reset Commands
+          </a>
+        </div>
+      </div>
+    );
+  }
+
   render () {
     return (
       <section className='command-list'>
@@ -34,6 +48,8 @@ export default class CommandList extends Component {
           { this.props.commands.length
               ? this.props.commands.map(componentFor)
               : <Introduction /> }
+
+          { this.renderReset() }
         </div>
       </section>
     );

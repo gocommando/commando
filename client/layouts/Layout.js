@@ -9,19 +9,16 @@ export default class Layout extends Component {
     super(props, context);
     this.state = { commands: [] };
     this.socket = new CommandSocket();
+    this.invoke = (message) => this.socket.invoke({ message });
   }
 
   componentDidMount () {
-    this.socket.onMessage(this.pushCommand.bind(this));
-    this.setState({ commands: this.socket.savedCommands() });
+    this.socket.listen(commands => this.setState({ commands }));
   }
 
-  pushCommand (command) {
-    this.setState({ commands: [command, ...this.state.commands] });
-  }
-
-  handleChange (message) {
-    this.socket.emit('command:invoke', { message });
+  reset (e) {
+    e.preventDefault();
+    this.socket.reset();
   }
 
   render () {
@@ -32,12 +29,13 @@ export default class Layout extends Component {
 
           <div className='hero-content'>
             <div className='container'>
-              <SpeechInput onChange={ this.handleChange.bind(this) } />
+              <SpeechInput onChange={ this.invoke.bind(this) } />
             </div>
           </div>
         </section>
 
-        <CommandList commands={ this.state.commands } />
+        <CommandList commands={ this.state.commands }
+                     reset={ this.reset.bind(this) } />
       </div>
     );
   }
