@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 import { extend } from 'lodash';
-import { create as createGuid } from 'guid';
+import { v1 as generateId } from 'node-uuid';
 import EventEmitter from 'events';
 
 function readFromStorage () {
@@ -23,7 +23,7 @@ function writeToStorage (commands) {
 }
 
 function identify (data) {
-  return extend({ id: createGuid() }, data);
+  return extend({ id: generateId() }, data);
 }
 
 export default class CommandStore extends EventEmitter {
