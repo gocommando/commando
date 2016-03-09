@@ -106,7 +106,6 @@ export default class SpeechInput extends Component {
         <div className='control is-grouped'>
           <input className='input is-large' type='text'
                  placeholder={ this.state.example }
-                 autoFocus='true'
                  value={ this.state.message }
                  onChange={ this.handleChange.bind(this) } />
 
