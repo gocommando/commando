@@ -25,8 +25,8 @@ export default class CommandStore extends EventEmitter {
   }
 
   listen (callback) {
-    this.socket.on('command:error', this.handleError.bind(this));
-    this.socket.on('command:success', this.handleSuccess.bind(this));
+    this.socket.on('command:error', ::this.handleError);
+    this.socket.on('command:success', ::this.handleSuccess);
     this.on('change', callback);
     this.emit('change', this.commands);
   }

@@ -46,7 +46,7 @@ export default class CommandList extends Component {
     return (
       <div className='card animated fadeInUp'>
         <div className='card-content'>
-          <a href='#' className='content' onClick={ this.reset.bind(this) }>
+          <a href='#' className='content' onClick={ ::this.reset }>
             Reset Commands
           </a>
         </div>

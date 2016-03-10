@@ -72,7 +72,7 @@ export default class YouTube extends Component {
           </Body>
         </Content>
 
-        <VideoList videos={ otherVideos } onClick={ this.handleActivate.bind(this) } />
+        <VideoList videos={ otherVideos } onClick={ ::this.handleActivate } />
       </Card>
     );
   }
