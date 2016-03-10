@@ -81,7 +81,7 @@ export default class Speech extends EventEmitter {
       case 'service-not-allowed':
         this.emit('error', new Error('Microphone not allowed.'));
         break;
-      default:
+      case 'audio-capture':
         this.emit('error', new Error('Microphone error'));
     }
   }
