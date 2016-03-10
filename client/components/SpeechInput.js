@@ -1,14 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { get } from 'axios';
-import listeningSound from '../static/sounds/listening.mp3';
-import notListeningSound from '../static/sounds/notlistening.mp3';
+import Speech from 'services/speech';
+import { playSpeechRecognized } from 'services/sounds';
 import classnames from 'classnames';
-
-function buttonClasses (isListening) {
-  return classnames('button is-outlined is-large', {
-    'is-loading': isListening
-  });
-}
 
 function rotateThrough (data, callback) {
   let i = 0;
@@ -38,81 +32,93 @@ export default class SpeechInput extends Component {
 
   constructor (props, context) {
     super(props, context);
-    this.commands = [];
+    this.speech = new Speech();
+
     this.state = {
       message: null,
-      example: 'How may I assist you?'
+      example: 'How may I assist you?',
+      listening: false
     };
   }
 
   componentDidMount () {
-    this.recognizer = new webkitSpeechRecognition();
-    this.recognizer.lang = 'en';
-    this.recognizer.interimResults = true;
-    this.recognizer.onresult = this.handleSpeech.bind(this);
-    this.recognizer.onstart = this.speechDidStart.bind(this);
-    this.recognizer.onend = this.speechDidEnd.bind(this);
-    rotateExamples(this.changeExample.bind(this));
+    this.speech.on('interim', ::this.handleInterim);
+    this.speech.on('complete', ::this.handleComplete);
+    this.speech.on('start', ::this.speechDidStart);
+    this.speech.on('error', ::this.speechDidEnd);
+    this.startSpeech();
+    rotateExamples(::this.changeExample);
   }
 
   changeExample (err, example) {
-    if (!err) {
-      this.setState({ example });
-    }
+    if (!err) this.setState({ example });
   }
 
   startSpeech () {
-    this.recognizer.start();
+    this.speech.start();
   }
 
   speechDidStart () {
-    new Audio(listeningSound).play();
-    this.setState({ message: 'Listening...' });
+    this.setState({ listening: true });
   }
 
   speechDidEnd () {
-    new Audio(notListeningSound).play();
-    this.setState({ message: null });
+    this.setState({ listening: false });
   }
 
-  handleSpeech (event) {
-    if (!event.results.length) return;
-
-    let result = event.results[event.results.length - 1];
-    let message = result[0].transcript;
-
+  handleInterim ([message]) {
     this.setState({ message });
+  }
 
-    if (result.isFinal) {
-      this.props.onChange(message);
-    }
+  handleComplete ([message]) {
+    playSpeechRecognized();
+    this.setState({ message: null });
+    this.props.onChange(message);
   }
 
   handleSubmit (event) {
     event.preventDefault();
-    this.setState({ message: null });
-    this.props.onChange(this.state.message);
+    this.handleComplete([this.state.message]);
   }
 
   handleChange (event) {
     event.preventDefault();
-    let message = event.target.value;
-    this.setState({ message });
+    this.handleInterim([event.target.value]);
+  }
+
+  placeholder () {
+    return this.state.listening ? 'Listening...' : this.state.example;
+  }
+
+  renderInput () {
+    return (
+      <input className='input is-large' type='text'
+             placeholder={ this.placeholder() }
+             value={ this.state.message }
+             onChange={ ::this.handleChange } />
+    );
+  }
+
+  renderButton () {
+    if (this.speech.isNotSupported) return;
+
+    let classes = classnames('button is-outlined is-large', {
+      'is-loading': this.state.listening
+    });
+
+    return (
+      <a className={ classes } onClick={ ::this.startSpeech }>
+        { this.state.listening ? null : <i className='fa fa-microphone'></i> }
+      </a>
+    );
   }
 
   render () {
     return (
-      <form onSubmit={ this.handleSubmit.bind(this) } className='speech-input'>
+      <form onSubmit={ ::this.handleSubmit } className='speech-input'>
         <div className='control is-grouped'>
-          <input className='input is-large' type='text'
-                 placeholder={ this.state.example }
-                 value={ this.state.message }
-                 onChange={ this.handleChange.bind(this) } />
-
-          <a className={ buttonClasses(this.state.message) } onClick={ this.startSpeech.bind(this) }>
-            { this.state.message ? <noscript /> : <i className='fa fa-microphone'></i> }
-          </a>
-
+          { this.renderInput() }
+          { this.renderButton() }
           <input type='submit' style={{display: 'none'}} />
         </div>
       </form>
