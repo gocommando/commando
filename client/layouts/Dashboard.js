@@ -7,7 +7,7 @@ import Header from './Header';
 const socket = new CommandService();
 const invoke = (message) => socket.invoke({ message });
 
-export default class Layout extends Component {
+export default class Dashboard extends Component {
   constructor (props, context) {
     super(props, context);
     this.state = { commands: [] };
