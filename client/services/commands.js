@@ -14,7 +14,7 @@ export default class CommandStore extends EventEmitter {
   constructor () {
     super();
     this.socket = io();
-    this.commands = store.read();
+    this.commands = store.read().filter((c) => !c.error);
     this.invoke = this.socket.emit.bind(this.socket, 'command:invoke');
   }
 
