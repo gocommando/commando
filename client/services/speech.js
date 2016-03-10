@@ -1,5 +1,6 @@
 import EventEmitter from 'events';
 
+const noop = () => {};
 const protocol = window.location.protocol;
 
 const SpeechRecognition = (
@@ -18,7 +19,12 @@ function mapTranscripts (speechResult) {
 
 let recognizer;
 function setupRecognizer () {
-  if (recognizer) recognizer.abort();
+  if (recognizer) {
+    recognizer.onend = noop;
+    recognizer.onerror = noop;
+    recognizer.abort();
+  }
+
   recognizer = new SpeechRecognition();
   recognizer.maxAlternatives = 5;
   recognizer.lang = 'en-US';
