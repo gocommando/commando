@@ -9,6 +9,7 @@
     "clean": "rm -rf build",
     "test": "NODE_PATH=lib NODE_ENV=test mocha",
     "test:dev": "npm run test -- --watch",
+    "test:cov": "NODE_PATH=lib NODE_ENV=test babel-node node_modules/isparta/bin/isparta cover --report html node_modules/mocha/bin/_mocha",
     "lint": "eslint . ./",
     "lint:fix": "npm run lint -- --fix",
     "postinstall": "[ \"$NODE_ENV\" = \"production\" ] && npm run compile || true"
@@ -60,6 +61,7 @@
     "css-loader": "^0.23.1",
     "file-loader": "^0.8.5",
     "html-webpack-plugin": "^2.7.2",
+    "isparta": "^4.0.0",
     "mocha": "^2.4.5",
     "node-sass": "^3.4.2",
     "nodemon": "^1.8.1",
