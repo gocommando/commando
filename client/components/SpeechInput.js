@@ -1,29 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { get } from 'axios';
 import Speech from 'services/speech';
-import { playSpeechRecognized } from 'services/sounds';
+import rotateExamples from 'services/examples';
 import classnames from 'classnames';
+import { playSpeechRecognized } from 'services/sounds';
 
-function rotateThrough (data, callback) {
-  let i = 0;
-
-  callback(null, data[0].example);
-
-  setInterval(() => {
-    i++;
-    let val = data[i % data.length];
-    callback(null, val.example);
-  }, 2000);
-}
-
-async function rotateExamples (callback) {
-  try {
-    let result = await get('/api/commands');
-    rotateThrough(result.data, callback);
-  } catch (e) {
-    callback(e);
-  }
-}
+const speech = new Speech();
 
 export default class SpeechInput extends Component {
   static propTypes = {
@@ -33,7 +14,6 @@ export default class SpeechInput extends Component {
 
   constructor (props, context) {
     super(props, context);
-    this.speech = new Speech();
 
     this.state = {
       message: null,
@@ -43,20 +23,17 @@ export default class SpeechInput extends Component {
   }
 
   componentDidMount () {
-    this.speech.on('interim', ::this.handleInterim);
-    this.speech.on('complete', ::this.handleComplete);
-    this.speech.on('start', ::this.speechDidStart);
-    this.speech.on('error', ::this.handleError);
-    this.startSpeech();
+    speech.removeAllListeners();
+    speech.on('interim', ::this.handleInterim);
+    speech.on('complete', ::this.handleComplete);
+    speech.on('start', ::this.speechDidStart);
+    speech.on('error', ::this.handleError);
+    speech.start();
     rotateExamples(::this.changeExample);
   }
 
   changeExample (err, example) {
     if (!err) this.setState({ example });
-  }
-
-  startSpeech () {
-    this.speech.start();
   }
 
   speechDidStart () {
@@ -102,14 +79,14 @@ export default class SpeechInput extends Component {
   }
 
   renderButton () {
-    if (this.speech.isNotSupported) return;
+    if (speech.isNotSupported) return;
 
     let classes = classnames('button is-outlined is-large', {
       'is-loading': this.state.listening
     });
 
     return (
-      <a className={ classes } onClick={ ::this.startSpeech }>
+      <a className={ classes } onClick={ ::speech.start }>
         { this.state.listening ? null : <i className='fa fa-microphone'></i> }
       </a>
     );

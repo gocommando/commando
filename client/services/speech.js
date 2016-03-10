@@ -1,6 +1,5 @@
 import EventEmitter from 'events';
 
-const noop = () => {};
 const protocol = window.location.protocol;
 
 const SpeechRecognition = (
@@ -8,6 +7,16 @@ const SpeechRecognition = (
   window.webkitSpeechRecognition ||
   window.mozSpeechRecognition
 );
+
+let recognizer;
+let startedAt;
+if (SpeechRecognition) {
+  recognizer = new SpeechRecognition();
+  recognizer.maxAlternatives = 5;
+  recognizer.lang = 'en-US';
+  recognizer.interimResults = true;
+  recognizer.continuous = protocol === 'http:';
+}
 
 function mapTranscripts (speechResult) {
   let transcripts = [];
@@ -17,28 +26,10 @@ function mapTranscripts (speechResult) {
   return transcripts;
 }
 
-let recognizer;
-function setupRecognizer () {
-  if (recognizer) {
-    recognizer.onend = noop;
-    recognizer.onerror = noop;
-    recognizer.abort();
-  }
-
-  recognizer = new SpeechRecognition();
-  recognizer.maxAlternatives = 5;
-  recognizer.lang = 'en-US';
-  recognizer.interimResults = true;
-  recognizer.continuous = protocol === 'http:';
-}
-
 export default class Speech extends EventEmitter {
   constructor () {
     super();
-    this.startedAt = null;
-
-    if (SpeechRecognition) {
-      setupRecognizer();
+    if (recognizer) {
       recognizer.onresult = ::this._onResult;
       recognizer.onstart = ::this._onStart;
       recognizer.onend = ::this._onEnd;
@@ -51,7 +42,7 @@ export default class Speech extends EventEmitter {
   start () {
     if (this.isNotSupported) {
       this.emit('error', new Error('Speech recognition is not supported in your browser'));
-    } else {
+    } else if (!startedAt) {
       recognizer.start();
     }
   }
@@ -64,13 +55,14 @@ export default class Speech extends EventEmitter {
   }
 
   _onStart () {
-    this.startedAt = new Date().getTime();
+    startedAt = new Date().getTime();
     this.emit('start');
   }
 
   _onEnd () {
-    let now = new Date().getTime();
-    let recency = now - this.startedAt;
+    const now = new Date().getTime();
+    const recency = now - startedAt;
+    startedAt = undefined; // reset
 
     if (recency < 1000) {
       setTimeout(::this.start, 1000 - recency);
