@@ -1,5 +1,7 @@
 import EventEmitter from 'events';
 
+const protocol = window.location.protocol;
+
 const SpeechRecognition = (
   window.SpeechRecognition ||
   window.webkitSpeechRecognition ||
@@ -8,44 +10,43 @@ const SpeechRecognition = (
 
 function mapTranscripts (speechResult) {
   let transcripts = [];
-
   for (let i = 0; i < speechResult.length; i++) {
     transcripts.push(speechResult[i].transcript);
   }
-
   return transcripts;
+}
+
+let recognizer;
+function setupRecognizer () {
+  if (recognizer) recognizer.abort();
+  recognizer = new SpeechRecognition();
+  recognizer.maxAlternatives = 5;
+  recognizer.lang = 'en-US';
+  recognizer.interimResults = true;
+  recognizer.continuous = protocol === 'http:';
 }
 
 export default class Speech extends EventEmitter {
   constructor () {
     super();
-
-    if (!SpeechRecognition) {
-      this.isNotSupported = true;
-      return;
-    }
-
-    this.recognizer = new SpeechRecognition();
     this.startedAt = null;
 
-    // configuration
-    this.recognizer.maxAlternatives = 5;
-    this.recognizer.lang = 'en-US';
-    this.recognizer.interimResults = true;
-    this.recognizer.continuous = window.location.protocol === 'http:';
-
-    // events
-    this.recognizer.onresult = ::this._onResult;
-    this.recognizer.onstart = ::this._onStart;
-    this.recognizer.onend = ::this._onEnd;
-    this.recognizer.onerror = ::this._onError;
+    if (SpeechRecognition) {
+      setupRecognizer();
+      recognizer.onresult = ::this._onResult;
+      recognizer.onstart = ::this._onStart;
+      recognizer.onend = ::this._onEnd;
+      recognizer.onerror = ::this._onError;
+    } else {
+      this.isNotSupported = true;
+    }
   }
 
   start () {
     if (this.isNotSupported) {
       this.emit('error', new Error('Speech recognition is not supported in your browser'));
     } else {
-      this.recognizer.start();
+      recognizer.start();
     }
   }
 
