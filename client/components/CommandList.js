@@ -20,7 +20,7 @@ function componentFor ({ error, response, id }) {
     return <Error { ...error } key={ id }/>;
   } else {
     let component = findComponent(response.name);
-    let props = { ...response.props, key: id };
+    let props = { ...response.props, id, key: id };
     return React.createElement(component, props);
   }
 }

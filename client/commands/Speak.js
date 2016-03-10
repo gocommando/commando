@@ -1,40 +1,44 @@
 import React, { Component, PropTypes } from 'react';
 import Card, { Body, Media, Content } from 'components/Card';
-import { once } from 'lodash';
+import say, { isSupportedBrowser } from 'services/say';
+import storage from 'services/localstorage';
 
-function findVoiceSync (name) {
-  return speechSynthesis.getVoices().find((voice) => {
-    return voice.name === name;
-  });
-}
+const store = storage('speakComponentSaid', []);
 
-function findVoice (name, callback) {
-  let allVoices = speechSynthesis.getVoices();
-
-  if (!allVoices.length) {
-    speechSynthesis.onvoiceschanged = once(() => {
-      callback(findVoiceSync(name));
-    });
-  } else {
-    callback(findVoiceSync(name));
-  }
+function hasNotSaid (id) {
+  return !~store.read().indexOf(id);
 }
 
 export default class Speak extends Component {
   static propTypes = {
+    id: PropTypes.string.isRequired,
     message: PropTypes.string.isRequired
   };
 
   componentDidMount () {
-    this.speak();
+    if (hasNotSaid(this.props.id)) {
+      this.speak();
+    }
   }
 
   speak () {
-    findVoice('Google UK English Male', (voice) => {
-      let msg = new SpeechSynthesisUtterance(this.props.message);
-      msg.voice = voice;
-      speechSynthesis.speak(msg);
-    });
+    if (hasNotSaid(this.props.id)) {
+      store.write([this.props.id, ...store.read()]);
+    }
+
+    if (isSupportedBrowser) {
+      say(this.props.message);
+    }
+  }
+
+  renderButton () {
+    if (!isSupportedBrowser) return;
+
+    return (
+      <button onClick={ ::this.speak } type='button' className='button is-primary'>
+        Speak
+      </button>
+    );
   }
 
   render () {
@@ -48,9 +52,7 @@ export default class Speak extends Component {
             <p className='title'>
               { this.props.message }
             </p>
-            <button onClick={ this.speak.bind(this) } type='button' className='button is-primary'>
-              Speak
-            </button>
+            { this.renderButton() }
           </Body>
         </Content>
       </Card>
