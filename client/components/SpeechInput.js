@@ -27,7 +27,8 @@ async function rotateExamples (callback) {
 
 export default class SpeechInput extends Component {
   static propTypes = {
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    onError: PropTypes.func.isRequired
   };
 
   constructor (props, context) {
@@ -45,7 +46,7 @@ export default class SpeechInput extends Component {
     this.speech.on('interim', ::this.handleInterim);
     this.speech.on('complete', ::this.handleComplete);
     this.speech.on('start', ::this.speechDidStart);
-    this.speech.on('error', ::this.speechDidEnd);
+    this.speech.on('error', ::this.handleError);
     this.startSpeech();
     rotateExamples(::this.changeExample);
   }
@@ -62,7 +63,8 @@ export default class SpeechInput extends Component {
     this.setState({ listening: true });
   }
 
-  speechDidEnd () {
+  handleError (error) {
+    this.props.onError(error);
     this.setState({ listening: false });
   }
 

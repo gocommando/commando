@@ -29,13 +29,14 @@ export default class Layout extends Component {
 
           <div className='hero-content'>
             <div className='container'>
-              <SpeechInput onChange={ this.invoke.bind(this) } />
+              <SpeechInput onChange={ ::this.invoke }
+                           onError={ ::this.socket.catchError } />
             </div>
           </div>
         </section>
 
         <CommandList commands={ this.state.commands }
-                     reset={ this.reset.bind(this) } />
+                     reset={ ::this.reset } />
       </div>
     );
   }

@@ -46,4 +46,8 @@ export default class CommandStore extends EventEmitter {
   handleError ({ message, data }) {
     this.save({ message, error: data });
   }
+
+  catchError (error) {
+    this.save({ error: { error: error.message } });
+  }
 }
