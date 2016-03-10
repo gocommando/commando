@@ -4,17 +4,27 @@ import { v1 as generateId } from 'node-uuid';
 import storage from './localstorage';
 import EventEmitter from 'events';
 
+const store = storage('commands', []);
+
 function identify (data) {
   return extend({ id: generateId() }, data);
 }
 
-const store = storage('commands', []);
+function markAsExecuted ({ response: { props, ...resp }, ...rest }) {
+  let newProps = { ...props, previouslyExecuted: true };
+  let newResponse = { ...resp, props: newProps };
+  return { ...rest, response: newResponse };
+}
+
+function readPreviousValues () {
+  return store.read().filter((c) => !c.error).map(markAsExecuted);
+}
 
 export default class CommandStore extends EventEmitter {
   constructor () {
     super();
     this.socket = io();
-    this.commands = store.read().filter((c) => !c.error);
+    this.commands = readPreviousValues();
     this.invoke = this.socket.emit.bind(this.socket, 'command:invoke');
   }
 

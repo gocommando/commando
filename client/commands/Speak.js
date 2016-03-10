@@ -1,31 +1,21 @@
 import React, { Component, PropTypes } from 'react';
 import Card, { Body, Media, Content } from 'components/Card';
 import say, { isSupportedBrowser } from 'services/say';
-import storage from 'services/localstorage';
-
-const store = storage('speakComponentSaid', []);
-
-function hasNotSaid (id) {
-  return !~store.read().indexOf(id);
-}
 
 export default class Speak extends Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired
+    message: PropTypes.string.isRequired,
+    previouslyExecuted: PropTypes.bool
   };
 
   componentDidMount () {
-    if (hasNotSaid(this.props.id)) {
+    if (!this.props.previouslyExecuted) {
       this.speak();
     }
   }
 
   speak () {
-    if (hasNotSaid(this.props.id)) {
-      store.write([this.props.id, ...store.read()]);
-    }
-
     if (isSupportedBrowser) {
       say(this.props.message);
     }
