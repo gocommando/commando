@@ -9,7 +9,6 @@ const SpeechRecognition = (
 );
 
 let recognizer;
-let startedAt;
 if (SpeechRecognition) {
   recognizer = new SpeechRecognition();
   recognizer.maxAlternatives = 5;
@@ -42,9 +41,20 @@ export default class Speech extends EventEmitter {
   start () {
     if (this.isNotSupported) {
       this.emit('error', new Error('Speech recognition is not supported in your browser'));
-    } else if (!startedAt) {
+    } else {
       recognizer.start();
     }
+  }
+
+  stop () {
+    this.stopped = true;
+    recognizer.stop();
+  }
+
+  abort () {
+    this.stopped = true;
+    this.removeAllListeners();
+    recognizer.abort();
   }
 
   _onResult (event) {
@@ -55,17 +65,12 @@ export default class Speech extends EventEmitter {
   }
 
   _onStart () {
-    startedAt = new Date().getTime();
     this.emit('start');
   }
 
   _onEnd () {
-    const now = new Date().getTime();
-    const recency = now - startedAt;
-    startedAt = undefined; // reset
-
-    if (recency < 1000) {
-      setTimeout(::this.start, 1000 - recency);
+    if (this.stopped) {
+      return;
     } else {
       this.start();
     }

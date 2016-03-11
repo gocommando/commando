@@ -2,7 +2,10 @@ import express from 'express';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import session from 'express-session';
+import Grant from 'grant-express';
 import historyApiFallback from 'connect-history-api-fallback';
+import auth from './routes/auth';
 import commands from './routes/commands';
 import { env, paths } from '../config';
 
@@ -15,7 +18,14 @@ if (env.development) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+  secret: 'grant',
+  resave: true,
+  saveUninitialized: true
+}));
 
+app.use(new Grant(require('../config/grant')));
+app.use('/auth', auth);
 app.use('/api/commands', commands);
 
 app.use(historyApiFallback({

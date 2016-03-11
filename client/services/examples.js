@@ -1,22 +1,28 @@
 import { get } from 'axios';
 
+let interval;
+
 function rotateThrough (data, callback) {
   let i = 0;
 
   callback(null, data[0].example);
 
-  setInterval(() => {
+  interval = setInterval(() => {
     i++;
     let val = data[i % data.length];
     callback(null, val.example);
   }, 2000);
 }
 
-export default async function rotateExamples (callback) {
+export async function rotateExamples (callback) {
   try {
-    let result = await get('/api/commands');
-    rotateThrough(result.data, callback);
+    let examples = await get('/api/commands');
+    return rotateThrough(examples.data, callback);
   } catch (e) {
     callback(e);
   }
+}
+
+export function stopExamples () {
+  clearInterval(interval);
 }

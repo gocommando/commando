@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Speech from 'services/speech';
-import rotateExamples from 'services/examples';
+import { rotateExamples, stopExamples } from 'services/examples';
 import classnames from 'classnames';
 import { playSpeechRecognized } from 'services/sounds';
 
@@ -20,6 +20,11 @@ export default class SpeechInput extends Component {
       example: 'How may I assist you?',
       listening: false
     };
+  }
+
+  componentWillUnmount () {
+    speech.abort();
+    stopExamples();
   }
 
   componentDidMount () {

@@ -4,13 +4,28 @@
   "repository": "https://github.com/rzane/commando",
   "keywords": ["node", "express", "socketio", "commando", "google", "now"],
   "env": {
-    "NPM_CONFIG_PRODUCTION": {
-      "description": "Running webpack is part of the deploy process, so we install dev dependencies in production.",
-      "value": "false"
+    "HOST": {
+      "description": "Hostname for your app",
+      "required": true
+    },
+    "PROTOCOL": {
+      "description": "Protocol for your app",
+      "required": true,
+      "value": "https"
     },
     "GOOGLE_TOKEN": {
       "description": "Google API token. Only necessary for certain commands.",
       "required": false
+    },
+    "GITHUB_CLIENT_ID": {
+      "description": "Client ID for GitHub OAuth"
+    },
+    "GITHUB_SECRET": {
+      "description": "Client Secret for GitHub OAuth"
+    },
+    "NPM_CONFIG_PRODUCTION": {
+      "description": "Running webpack is part of the deploy process, so we install dev dependencies in production.",
+      "value": "false"
     }
   }
 }

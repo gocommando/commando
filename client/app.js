@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import Root from 'layouts/Root';
 import Dashboard from 'layouts/Dashboard';
 import LandingPage from 'layouts/LandingPage';
+import { authenticate } from 'services/api';
 import './app.scss';
 
 import {
@@ -14,9 +15,9 @@ import {
 
 render(
   <Router history={browserHistory}>
-    <Route path="/" component={Root}>
+    <Route path='/' component={Root}>
       <IndexRoute component={LandingPage} />
-      <Route path="dashboard" component={Dashboard}/>
+      <Route path='dashboard' component={Dashboard} onEnter={authenticate} />
     </Route>
   </Router>,
   document.getElementById('root')

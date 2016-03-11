@@ -1,0 +1,23 @@
+@mixin login-button-variant ($color) {
+  color: findColorInvert($color);
+  background-color: $color;
+  border-color: transparent;
+}
+
+.login-button {
+  & + & {
+    margin-left: 5px;
+  }
+
+  &.facebook {
+    @include login-button-variant(#3a5795);
+  }
+
+  &.google {
+    @include login-button-variant(#ea4335);
+  }
+
+  &.twitter {
+    @include login-button-variant(#55acee);
+  }
+}
