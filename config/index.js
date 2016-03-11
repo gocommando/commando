@@ -1,10 +1,7 @@
 import path from 'path';
 import dotenv from 'dotenv';
-import debug from 'debug';
 
 dotenv.config({ silent: true });
-
-const info = debug('commando:config');
 
 const ENV = process.env.NODE_ENV || 'development';
 
@@ -23,6 +20,10 @@ export const tokens = {
   google: process.env.GOOGLE_TOKEN
 };
 
+export const urls = {
+  firebase: process.env.FIREBASE_URL
+}
+
 export const paths = {
   base: base,
   lib: base.bind(null, 'lib'),
@@ -32,8 +33,11 @@ export const paths = {
   public: base.bind(null, 'build')
 };
 
-export function configure () {
-  if (!tokens.google) {
-    info('missing GOOGLE_TOKEN environment variable.');
-  }
+if (!urls.firebase) {
+  console.error('missing FIREBASE_URL environment variable');
+  process.exit(1);
+}
+
+if (!tokens.google) {
+  console.warn('missing GOOGLE_TOKEN environment variable.');
 }

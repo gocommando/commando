@@ -1,7 +1,7 @@
-import { paths, env } from './config';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import WebpackNotifierPlugin from 'webpack-notifier';
+import { paths, env, urls } from './config';
 
 const webpackConfig = {
   entry: [
@@ -42,6 +42,9 @@ const webpackConfig = {
   },
 
   plugins: [
+    new webpack.DefinePlugin({
+      FIREBASE_URL: `"${urls.firebase}"`
+    }),
     new HtmlWebpackPlugin({
       template: paths.client('index.html'),
       favicon: paths.client('static/images/favicon.ico'),

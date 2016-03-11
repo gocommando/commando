@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 require('babel-core/register')();
-require('../config').configure();
+require('../config');
 
 /**
  * Module dependencies.
