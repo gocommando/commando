@@ -4,29 +4,29 @@ import SpeechInput from 'components/SpeechInput';
 import CommandList from 'components/CommandList';
 import Header from './Header';
 
-const socket = new CommandService();
-const invoke = (message) => socket.invoke({ message });
-
 export default class Dashboard extends Component {
   constructor (props, context) {
     super(props, context);
     this.state = { commands: [] };
+    this.invoke = (message) => this.socket.invoke({ message });
+    this.catchError = (e) => this.socket.catchError(e);
   }
 
   componentDidMount () {
-    socket.listen(commands => this.setState({ commands }));
+    this.socket = new CommandService();
+    this.socket.listen(commands => this.setState({ commands }));
   }
 
   reset (e) {
     e.preventDefault();
-    socket.reset();
+    this.socket.reset();
   }
 
   render () {
     return (
       <div>
         <Header>
-          <SpeechInput onChange={ invoke } onError={ ::socket.catchError } />
+          <SpeechInput onChange={ ::this.invoke } onError={ ::this.catchError } />
         </Header>
         <CommandList commands={ this.state.commands } reset={ ::this.reset } />
       </div>
